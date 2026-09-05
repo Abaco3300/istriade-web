@@ -13,7 +13,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,3 +30,48 @@ jobs:
 
       - name: Run content, brand, type and build checks
         run: npm run check
+
+      - name: Start built site
+        run: |
+          npm start -- --hostname 127.0.0.1 > /tmp/istriade-next.log 2>&1 &
+          echo $! > /tmp/istriade-next.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:3000/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/istriade-next.log
+          exit 1
+
+      - name: HTTP smoke tests
+        run: |
+          set -euo pipefail
+          for path in / /about/ /products/ /capabilities/ /approach/ /contact/ /legal/ /privacy/ /terms/ /robots.txt /sitemap.xml; do
+            code="$(curl -sS -o /tmp/istriade-body -w '%{http_code}' "http://127.0.0.1:3000${path}")"
+            test "$code" = "200" || { echo "$path returned $code"; exit 1; }
+          done
+          missing_code="$(curl -sS -o /tmp/istriade-404 -w '%{http_code}' http://127.0.0.1:3000/definitely-missing-page/)"
+          test "$missing_code" = "404" || { echo "Expected 404, got $missing_code"; exit 1; }
+          curl -fsS http://127.0.0.1:3000/robots.txt | grep -q 'Sitemap: https://istriadegroup.com/sitemap.xml'
+          curl -fsS http://127.0.0.1:3000/sitemap.xml | grep -q 'https://istriadegroup.com/about/'
+          ! curl -fsS http://127.0.0.1:3000/ | grep -q 'href="https://sygvana.com'
+          ! curl -fsS http://127.0.0.1:3000/ | grep -q 'href="https://irmya.com'
+
+      - name: Install Chromium for private visual QA
+        run: npx -y playwright@1.62.1 install --with-deps chromium
+
+      - name: Capture private QA screenshots
+        run: |
+          mkdir -p visual-artifacts
+          npx -y playwright@1.62.1 screenshot --browser=chromium --viewport-size="1440,1000" --full-page http://127.0.0.1:3000/ visual-artifacts/home-desktop.png
+          npx -y playwright@1.62.1 screenshot --browser=chromium --viewport-size="390,844" --full-page http://127.0.0.1:3000/ visual-artifacts/home-mobile.png
+          npx -y playwright@1.62.1 screenshot --browser=chromium --viewport-size="1440,1000" --full-page http://127.0.0.1:3000/products/ visual-artifacts/products-desktop.png
+
+      - name: Upload private visual QA artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: corporate-site-visual-qa
+          path: visual-artifacts/
+          if-no-files-found: error
+          retention-days: 7
