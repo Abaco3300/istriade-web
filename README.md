@@ -13,17 +13,16 @@ Corporate hub for **ISTRIADE GROUP LLC**.
 - Clean-environment CI: pass
 - HTTP smoke tests: pass
 - Initial private visual QA: pass
-- Merge to `main`: **complete**
-- Main commit: `f5a6028ba34412154a2a1fbb9b3663e9da5d1fea`
-- Production deployment/cutover: **not authorized / not started**
-- `BLK-017`: **closed / verified** — current corporate production runtime is Cloudflare Workers & Pages project `tiny-pond-1463`, serving `istriadegroup.com` as a custom domain via manually uploaded static assets; no Git auto-deploy relationship is used for this repository.
+- `BLK-017`: closed / verified
+- Current production runtime: Cloudflare Workers & Pages project `tiny-pond-1463`
+- Production deployment/cutover: **not authorized**
 
 ## Stack
 
 - Next.js 16.3.4 App Router
 - React 19.2
 - TypeScript
-- Static-first Server Components
+- Static export for Cloudflare (`output: "export"`)
 - No database
 - No authentication
 - No CMS
@@ -38,10 +37,10 @@ npm install
 npm run check
 ```
 
-`npm run check` runs content guards, canonical brand hash verification, TypeScript checking, and the production build.
+`npm run check` runs content guards, canonical brand hash verification, TypeScript checking, the static production build, and deployment-artifact verification.
 
-GitHub Actions additionally starts the built server, runs HTTP route/404/robots/sitemap smoke tests, verifies that held product domains are not rendered as active links, and captures private desktop/mobile QA screenshots.
+GitHub Actions additionally serves the exported `out/` directory for route checks, captures private desktop/mobile QA screenshots, and packages a verified Cloudflare deployment ZIP with SHA-256 and source-commit evidence.
 
 ## Current gate
 
-The next material gate is **production package / Cloudflare deployment authorization**. Merging code to `main` does not publish the website to `istriadegroup.com`.
+The next material gate is **production upload/cutover authorization**. Preparing or merging this deployment package does not itself publish the website to `istriadegroup.com`.
