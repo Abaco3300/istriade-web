@@ -1,28 +1,35 @@
 # WEB-LIVE-001 — Production Launch Audit & Final QA
 
-Status: LEGAL ADOPTION APPROVED — READY FOR MERGE / PRODUCTION DEPLOYMENT
+Status: COMPLETE — PRODUCTION DEPLOYED / STRIPE CORPORATE WEBSITE READINESS PASS
 
 Date: 2026-09-05
 
 ## Scope
 
-WEB-LIVE-001 validates the live ISTRIADE corporate website after production cutover and adds a dedicated Stripe website-readiness control layer.
+WEB-LIVE-001 validates the live ISTRIADE corporate website after production cutover and establishes a dedicated Stripe website-readiness control layer.
 
 The Stripe portion evaluates whether the public corporate website presents a coherent and reviewable business identity, clear product/service information, customer-support access, privacy and website terms, and commercial policies addressing payment, digital fulfillment, refunds, cancellations, subscriptions, promotions and disputes.
 
-## Current production baseline
+## Final production state
 
 - Corporate site: `https://istriadegroup.com`
 - Cloudflare Worker: `tiny-pond-1463`
-- Production cutover: COMPLETE
-- Production smoke verification: PASS
-- DNS changes during cutover: NONE
-- Product external links: HELD
-- Commercial activation: SEPARATE GOVERNANCE STATE
+- WEB-LIVE-001 remediation merge commit: `e948632ea398c075ae89c888dcedd9b35a212d9c`
+- Production deployment source commit: `5c8cce50f5eebed35962ed4836b7e168668cdae1`
+- Active Worker version: `52675752-21ea-4b9e-89e4-b391b4ab3fb5`
+- Traffic: `100%`
+- Production deployment workflow run: `33997214063`
+- Live smoke verification: `PASS`
+- Production verification: `PASS`
+- Rollback on final deployment: `NOT REQUIRED`
+- DNS changes: `NONE`
+- Production deployment workflow: restored to `workflow_dispatch` / manual-only after the authorized deployment
+- Product external links: `HELD`
+- Product-specific commercial activation: `SEPARATE GOVERNANCE STATE`
 
 ## Stripe Live account reconciliation
 
-The connected Stripe Live account currently reports:
+At audit time the connected Stripe Live account reported:
 
 - business name consistent with ISTRIADE GROUP LLC;
 - website: `istriadegroup.com`;
@@ -33,41 +40,39 @@ The connected Stripe Live account currently reports:
 - card payments enabled;
 - charges enabled;
 - payouts enabled;
-- no currently due verification requirements at the time of this audit.
+- no currently due verification requirements.
 
 No secret keys, tokens, bank details or private Stripe identifiers are stored in this repository.
 
-## Stripe-readiness matrix
+## Stripe-readiness matrix — final corporate website state
 
-| Control | Baseline | Remediation | Target state |
-|---|---|---|---|
-| Legal business name visible | PASS | Preserve | PASS |
-| Corporate website matches Stripe | PASS | Preserve | PASS |
-| Product/service description | PARTIAL | Explicitly surface SEO, web/digital implementation, marketing automation, software/SaaS | PASS |
-| Customer support contact | PASS/PARTIAL | Label support channel explicitly and connect billing/refund/cancellation questions | PASS |
-| Business correspondence address | PARTIAL | Publish the Stripe-consistent business correspondence address | PASS |
-| Privacy Policy | PRESENT | Adopted for publication under Corporate Pack v1.0 | PASS after deployment |
-| Website Terms | PRESENT | Adopted for publication under Corporate Pack v1.0 and linked to commercial policy layer | PASS after deployment |
-| Refund policy | GAP | Add general direct-purchase refund rules with product-specific override | PASS after deployment |
-| Cancellation policy | GAP | Add subscription/recurring-service cancellation rules | PASS after deployment |
-| Digital fulfillment/delivery | GAP/PARTIAL | Describe digital delivery and where delivery timing is disclosed | PASS after deployment |
-| Physical shipping/returns | NOT APPLICABLE by default | State that ordinary ISTRIADE offerings are digital and no physical shipping applies unless expressly offered | PASS |
-| Currency disclosure | PARTIAL | Establish USD default unless another currency is expressly identified | PASS after deployment |
-| Taxes/fees disclosure | PARTIAL | Add general disclosure | PASS after deployment |
-| Trials/promotions | GAP | Require offer-specific disclosure of trial, conversion, price and recurring terms | PASS after deployment |
-| Billing disputes | GAP | Add customer-support-first dispute path without waiving statutory/card rights | PASS after deployment |
-| Legal/export/geographic restrictions | GAP | Add general availability restriction language | PASS after deployment |
-| Payment security | PARTIAL | Clarify that payment providers process credentials and corporate site does not store full card data | PASS after deployment |
-| Product-specific policy precedence | PASS conceptually | Make the precedence rule explicit | PASS |
-| Footer accessibility of policies | GAP | Add Commercial Policies to sitewide footer | PASS after deployment |
-| Legacy refund URL | MISDIRECTED | Redirect `/refund-policy` and `/refund-cancellation` to Commercial Policies | PASS after deployment |
-| Automated regression guard | GAP | Add route/content/sitemap/redirect checks to CI and production smoke tests | PASS after merge |
+| Control | Final state |
+|---|---|
+| Legal business name visible | PASS |
+| Corporate website matches Stripe | PASS |
+| Product/service description | PASS |
+| Customer support contact | PASS |
+| Business correspondence address | PASS |
+| Privacy Policy | LEGALLY ADOPTED / PUBLISHED |
+| Website Terms | LEGALLY ADOPTED / PUBLISHED |
+| Commercial Policies | LEGALLY ADOPTED / PUBLISHED |
+| Refund policy | PASS |
+| Cancellation policy | PASS |
+| Digital fulfillment/delivery | PASS |
+| Physical shipping/returns | NOT APPLICABLE by default / disclosed |
+| Currency disclosure | PASS — USD default unless otherwise identified |
+| Taxes/fees disclosure | PASS |
+| Trials/promotions disclosure rule | PASS |
+| Billing disputes | PASS |
+| Legal/export/geographic restrictions | PASS |
+| Payment-security disclosure | PASS |
+| Product-specific policy precedence | PASS |
+| Footer accessibility of policies | PASS |
+| Legacy refund/cancellation redirects | PASS |
+| Automated regression guard | PASS |
+| Production smoke tests | PASS |
 
-## Remediation prepared in this branch
-
-Branch: `audit/web-live-001-stripe-readiness`
-
-Prepared changes:
+## Remediation deployed
 
 1. `/commercial-policies/` general commercial policy page.
 2. Explicit customer support and billing/refund/cancellation contact language.
@@ -75,38 +80,52 @@ Prepared changes:
 4. Explicit USD default-currency disclosure.
 5. Public business description aligned more closely with the Stripe business profile.
 6. Web & Digital Implementation and marketing automation capability language.
-7. Commercial Policies link from `/legal/`, `/terms/`, `/contact/` and global footer.
+7. Commercial Policies linked from `/legal/`, `/terms/`, `/contact/` and the global footer.
 8. Sitemap inclusion.
-9. Legacy refund/cancellation redirects to `/commercial-policies/`.
-10. Static export, CI and production deployment checks that enforce the commercial-policy route and key Stripe-readiness content.
+9. Legacy `/refund-policy` and `/refund-cancellation` redirects to `/commercial-policies/`.
+10. Static export, CI and production deployment checks enforcing the commercial-policy route and key Stripe-readiness content.
 
-## Governance
+## Legal adoption
 
 On 2026-09-05 the owner explicitly approved:
 
 `APROBADO — ADOPCIÓN LEGAL CORPORATE PACK v1.0`
 
-Accordingly, the following are classified as **LEGALLY_ADOPTED / APPROVED FOR PUBLICATION**:
+Accordingly, the following are classified as **LEGALLY_ADOPTED / PUBLISHED**:
 
 - Corporate Privacy Policy;
 - Corporate Website Terms;
 - Corporate Commercial Policies.
 
-This adoption authorizes merge and publication of the approved wording. It does not constitute external legal certification or legal advice.
+This adoption and publication do not constitute external legal certification or legal advice.
 
-Product-specific checkout, pricing, refund, cancellation, subscription and other commercial/legal requirements remain separately governed and must be validated before each product accepts live payment.
+## Remaining product-level gate
 
-## Definition of done
+Corporate website Stripe readiness is complete. This does **not** automatically authorize every ISTRIADE product to accept live payment.
 
-WEB-LIVE-001 may close only when:
+Before a product accepts live payment, its product-specific checkout and commercial layer must still be validated for the applicable offering, including as relevant:
+
+- exact product/service description;
+- price and currency;
+- fulfillment/delivery expectations;
+- product-specific refund or cancellation terms;
+- subscription frequency and renewal terms;
+- trial or promotional conversion terms;
+- privacy/terms acceptance where required;
+- checkout/payment configuration;
+- live payment end-to-end validation.
+
+## Definition of done — achieved
 
 - branch CI = PASS;
 - legal/commercial policy adoption = APPROVED;
 - remediation merged to `main`;
 - Cloudflare production deployment = PASS;
 - public route checks = PASS;
-- `/commercial-policies/` publicly reachable;
-- refund legacy redirects resolve to Commercial Policies;
-- support identity/address/currency disclosures are public;
+- `/commercial-policies/` deployed and verified;
+- refund legacy redirects verified;
+- support identity/address/currency disclosures deployed;
 - Stripe-readiness regression checks = PASS;
 - product-specific checkout/legal gates remain enforced before each product accepts live payment.
+
+`WEB-LIVE-001 = CLOSED / COMPLETE`
