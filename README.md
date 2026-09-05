@@ -9,8 +9,12 @@ Corporate hub for **ISTRIADE GROUP LLC**.
 - Canonical brand assets: recovered and integrity-pinned
 - Product registry: v1 frozen with four products; external links disabled until individually authorized
 - Corporate legal surface: `/legal/`, `/privacy/`, `/terms/`
+- Source implementation: built
+- Clean-environment CI: pass
+- HTTP smoke tests: pass
+- Initial private visual QA: pass
 - Production cutover: **not authorized**
-- `BLK-017`: current production origin remains unresolved and blocks only cutover/DNS changes
+- `BLK-017`: **closed / verified** — current corporate production runtime is Cloudflare Workers & Pages project `tiny-pond-1463`, serving `istriadegroup.com` as a custom domain via manually uploaded static assets; no Git auto-deploy relationship is used for this rebuild branch.
 
 ## Stack
 
@@ -25,7 +29,7 @@ Corporate hub for **ISTRIADE GROUP LLC**.
 - No contact form backend
 - No non-essential analytics in v1
 
-## Local verification
+## Verification
 
 ```bash
 npm install
@@ -33,3 +37,5 @@ npm run check
 ```
 
 `npm run check` runs content guards, canonical brand hash verification, TypeScript checking, and the production build.
+
+GitHub Actions additionally starts the built server, runs HTTP route/404/robots/sitemap smoke tests, verifies that held product domains are not rendered as active links, and captures private desktop/mobile QA screenshots.
