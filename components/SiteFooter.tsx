@@ -13,7 +13,7 @@ export function SiteFooter() {
           </div>
           <strong>{site.legalName}</strong>
           <p>{site.oneLine}</p>
-          <span>{site.location}</span>
+          <span>{site.businessAddressText}</span>
         </div>
         <div>
           <h2>Products</h2>
@@ -34,16 +34,17 @@ export function SiteFooter() {
           <ul>{navItems.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}</ul>
         </div>
         <div>
-          <h2>Legal</h2>
+          <h2>Legal & Commercial</h2>
           <ul>
             <li><Link href="/privacy/">Privacy</Link></li>
             <li><Link href="/terms/">Website Terms</Link></li>
+            <li><Link href="/commercial-policies/">Commercial Policies</Link></li>
           </ul>
         </div>
       </div>
       <div className="container footer-bottom">
         <span>© 2026 {site.legalName}</span>
-        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a>
       </div>
     </footer>
   );

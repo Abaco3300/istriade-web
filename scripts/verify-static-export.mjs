@@ -14,6 +14,7 @@ const requiredFiles = [
   "legal/index.html",
   "privacy/index.html",
   "terms/index.html",
+  "commercial-policies/index.html",
   "404.html",
   "robots.txt",
   "sitemap.xml",
@@ -55,9 +56,30 @@ for (const canonical of [
   "https://istriadegroup.com/products/",
   "https://istriadegroup.com/privacy/",
   "https://istriadegroup.com/terms/",
+  "https://istriadegroup.com/commercial-policies/",
 ]) {
   if (!sitemap.includes(canonical)) {
     throw new Error(`sitemap.xml missing canonical URL: ${canonical}`);
+  }
+}
+
+const commercialPolicies = fs.readFileSync(path.join(out, "commercial-policies/index.html"), "utf8");
+for (const requiredText of [
+  "Refunds",
+  "Subscription and Recurring-Service Cancellations",
+  "Pricing, Currency and Taxes",
+  "Customer Support and Billing Questions",
+  "Products, Services and Delivery",
+]) {
+  if (!commercialPolicies.includes(requiredText)) {
+    throw new Error(`Commercial Policies missing Stripe-readiness section: ${requiredText}`);
+  }
+}
+
+const contact = fs.readFileSync(path.join(out, "contact/index.html"), "utf8");
+for (const requiredText of ["Customer support", "contact@istriadegroup.com", "Sheridan", "WY 82801"]) {
+  if (!contact.includes(requiredText)) {
+    throw new Error(`Contact page missing Stripe-readiness detail: ${requiredText}`);
   }
 }
 
@@ -77,7 +99,7 @@ for (const expected of [
   "/company /about/ 301",
   "/privacy-policy /privacy/ 301",
   "/terms-of-service /terms/ 301",
-  "/refund-policy /legal/ 301",
+  "/refund-policy /commercial-policies/ 301",
 ]) {
   if (!redirects.includes(expected)) {
     throw new Error(`_redirects missing rule: ${expected}`);
