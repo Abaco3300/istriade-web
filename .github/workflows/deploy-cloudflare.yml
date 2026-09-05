@@ -85,7 +85,7 @@ jobs:
           done
           test "$ready" = "1" || { echo "New homepage did not become visible"; exit 1; }
 
-          for path in / /about/ /products/ /capabilities/ /approach/ /contact/ /legal/ /privacy/ /terms/ /robots.txt /sitemap.xml; do
+          for path in / /about/ /products/ /capabilities/ /approach/ /contact/ /legal/ /privacy/ /terms/ /commercial-policies/ /robots.txt /sitemap.xml; do
             path_ready=0
             for attempt in $(seq 1 20); do
               code="$(curl -sSL -H 'Cache-Control: no-cache' -o /tmp/istriade-live-body -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN${path}")"
@@ -107,16 +107,27 @@ jobs:
           printf '%s\n' "$redirect_headers" | grep -Eq '^HTTP/[^ ]+ 301'
           printf '%s\n' "$redirect_headers" | grep -Eqi '^location: .*/about/?$'
 
+          refund_redirect_headers="$(curl -sSI -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/refund-policy" | tr -d '\r')"
+          printf '%s\n' "$refund_redirect_headers" | grep -Eq '^HTTP/[^ ]+ 301'
+          printf '%s\n' "$refund_redirect_headers" | grep -Eqi '^location: .*/commercial-policies/?$'
+
           home_headers="$(curl -sSI -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/" | tr -d '\r')"
           printf '%s\n' "$home_headers" | grep -Eqi '^x-content-type-options: nosniff$'
           printf '%s\n' "$home_headers" | grep -Eqi '^referrer-policy: strict-origin-when-cross-origin$'
 
           curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/robots.txt" | grep -Fq 'Sitemap: https://istriadegroup.com/sitemap.xml'
           curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/about/'
+          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/commercial-policies/'
 
           live_home="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/")"
           ! printf '%s' "$live_home" | grep -q 'href="https://sygvana.com'
           ! printf '%s' "$live_home" | grep -q 'href="https://irmya.com'
+
+          live_commercial="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/commercial-policies/")"
+          printf '%s' "$live_commercial" | grep -Fq 'Refunds'
+          printf '%s' "$live_commercial" | grep -Fq 'Subscription and Recurring-Service Cancellations'
+          printf '%s' "$live_commercial" | grep -Fq 'USD'
+          printf '%s' "$live_commercial" | grep -Fq 'contact@istriadegroup.com'
 
           printf '%s\n' "LIVE_SMOKE=PASS" > deployment-evidence/live-smoke.txt
 
