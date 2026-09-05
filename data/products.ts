@@ -45,6 +45,21 @@ export const products: ProductRecord[] = [
     order: 2,
   },
   {
+    id: "doesaiseeme",
+    name: "DoesAISeeMe",
+    category: "AI Search Visibility",
+    summary:
+      "A focused AI Search Visibility diagnostic that tests whether major AI answer environments can recognize, surface and recommend a business across branded and non-branded discovery queries.",
+    accent: "blue",
+    featured: false,
+    cardEnabled: false,
+    externalLinkEnabled: false,
+    websiteUrl: null,
+    intendedDomain: "https://doesaiseeme.istriadegroup.com",
+    publicStatusLabel: "First Revenue Candidate",
+    order: 3,
+  },
+  {
     id: "ai-video-studio",
     name: "ISTRIADE AI Video Studio",
     category: "AI-Assisted Video & Content Production",
@@ -57,7 +72,7 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: null,
     publicStatusLabel: null,
-    order: 3,
+    order: 4,
   },
   {
     id: "irmya",
@@ -72,7 +87,7 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: "https://irmya.com",
     publicStatusLabel: null,
-    order: 4,
+    order: 5,
   },
 ];
 
