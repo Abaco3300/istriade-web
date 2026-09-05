@@ -68,11 +68,13 @@ jobs:
           npx -y playwright@1.62.1 screenshot --browser=chromium --viewport-size="1440,1000" --full-page http://127.0.0.1:3000/products/ visual-artifacts/products-desktop.png
 
       - name: Package Cloudflare static deployment
+        env:
+          SOURCE_COMMIT: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
         run: |
           mkdir -p deployment-artifacts
           (cd out && zip -qr ../deployment-artifacts/istriade-cloudflare-static-v1.zip .)
           sha256sum deployment-artifacts/istriade-cloudflare-static-v1.zip > deployment-artifacts/istriade-cloudflare-static-v1.zip.sha256
-          printf '%s\n' "$GITHUB_SHA" > deployment-artifacts/source-commit.txt
+          printf '%s\n' "$SOURCE_COMMIT" > deployment-artifacts/source-commit.txt
 
       - name: Upload private visual QA artifacts
         uses: actions/upload-artifact@v4
