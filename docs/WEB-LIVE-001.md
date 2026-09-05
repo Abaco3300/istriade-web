@@ -1,6 +1,6 @@
 # WEB-LIVE-001 — Production Launch Audit & Final QA
 
-Status: IN PROGRESS — STRIPE REMEDIATION PREPARED / LEGAL ADOPTION REQUIRED
+Status: LEGAL ADOPTION APPROVED — READY FOR MERGE / PRODUCTION DEPLOYMENT
 
 Date: 2026-09-05
 
@@ -39,25 +39,25 @@ No secret keys, tokens, bank details or private Stripe identifiers are stored in
 
 ## Stripe-readiness matrix
 
-| Control | Baseline | Proposed remediation | Target state |
+| Control | Baseline | Remediation | Target state |
 |---|---|---|---|
 | Legal business name visible | PASS | Preserve | PASS |
 | Corporate website matches Stripe | PASS | Preserve | PASS |
 | Product/service description | PARTIAL | Explicitly surface SEO, web/digital implementation, marketing automation, software/SaaS | PASS |
 | Customer support contact | PASS/PARTIAL | Label support channel explicitly and connect billing/refund/cancellation questions | PASS |
 | Business correspondence address | PARTIAL | Publish the Stripe-consistent business correspondence address | PASS |
-| Privacy Policy | PRESENT | Preserve; legal adoption state remains separately governed | PASS after adoption governance |
-| Website Terms | PRESENT | Link to commercial policy layer | PASS after adoption governance |
-| Refund policy | GAP | Add general direct-purchase refund rules with product-specific override | PASS after adoption |
-| Cancellation policy | GAP | Add subscription/recurring-service cancellation rules | PASS after adoption |
-| Digital fulfillment/delivery | GAP/PARTIAL | Describe digital delivery and where delivery timing is disclosed | PASS after adoption |
+| Privacy Policy | PRESENT | Adopted for publication under Corporate Pack v1.0 | PASS after deployment |
+| Website Terms | PRESENT | Adopted for publication under Corporate Pack v1.0 and linked to commercial policy layer | PASS after deployment |
+| Refund policy | GAP | Add general direct-purchase refund rules with product-specific override | PASS after deployment |
+| Cancellation policy | GAP | Add subscription/recurring-service cancellation rules | PASS after deployment |
+| Digital fulfillment/delivery | GAP/PARTIAL | Describe digital delivery and where delivery timing is disclosed | PASS after deployment |
 | Physical shipping/returns | NOT APPLICABLE by default | State that ordinary ISTRIADE offerings are digital and no physical shipping applies unless expressly offered | PASS |
-| Currency disclosure | PARTIAL | Establish USD default unless another currency is expressly identified | PASS |
-| Taxes/fees disclosure | PARTIAL | Add general disclosure | PASS |
-| Trials/promotions | GAP | Require offer-specific disclosure of trial, conversion, price and recurring terms | PASS after adoption |
-| Billing disputes | GAP | Add customer-support-first dispute path without waiving statutory/card rights | PASS after adoption |
-| Legal/export/geographic restrictions | GAP | Add general availability restriction language | PASS after adoption |
-| Payment security | PARTIAL | Clarify that payment providers process credentials and corporate site does not store full card data | PASS after adoption |
+| Currency disclosure | PARTIAL | Establish USD default unless another currency is expressly identified | PASS after deployment |
+| Taxes/fees disclosure | PARTIAL | Add general disclosure | PASS after deployment |
+| Trials/promotions | GAP | Require offer-specific disclosure of trial, conversion, price and recurring terms | PASS after deployment |
+| Billing disputes | GAP | Add customer-support-first dispute path without waiving statutory/card rights | PASS after deployment |
+| Legal/export/geographic restrictions | GAP | Add general availability restriction language | PASS after deployment |
+| Payment security | PARTIAL | Clarify that payment providers process credentials and corporate site does not store full card data | PASS after deployment |
 | Product-specific policy precedence | PASS conceptually | Make the precedence rule explicit | PASS |
 | Footer accessibility of policies | GAP | Add Commercial Policies to sitewide footer | PASS after deployment |
 | Legacy refund URL | MISDIRECTED | Redirect `/refund-policy` and `/refund-cancellation` to Commercial Policies | PASS after deployment |
@@ -82,21 +82,19 @@ Prepared changes:
 
 ## Governance
 
-The new Commercial Policies and any modified legal wording in this branch are **DRAFT / NOT LEGALLY ADOPTED / NOT PUBLISHED**.
+On 2026-09-05 the owner explicitly approved:
 
-This branch must not be merged or deployed merely because CI passes. Publication requires an explicit Human Gate approving/adopting the proposed commercial/legal wording.
+`APROBADO — ADOPCIÓN LEGAL CORPORATE PACK v1.0`
 
-The existing corporate Privacy Policy and Website Terms were previously classified `PRODUCTION_DRAFT_FROZEN`, not `LEGALLY_ADOPTED`. WEB-LIVE-001 does not silently change that status.
+Accordingly, the following are classified as **LEGALLY_ADOPTED / APPROVED FOR PUBLICATION**:
 
-## Required Human Gate before merge/publication
+- Corporate Privacy Policy;
+- Corporate Website Terms;
+- Corporate Commercial Policies.
 
-The owner must explicitly approve/adopt:
+This adoption authorizes merge and publication of the approved wording. It does not constitute external legal certification or legal advice.
 
-- the corporate Privacy Policy for publication;
-- the corporate Website Terms for publication;
-- the new Commercial Policies for publication.
-
-After adoption, the branch can be merged, production deployment can be run once, and the live Stripe-readiness checks can be executed.
+Product-specific checkout, pricing, refund, cancellation, subscription and other commercial/legal requirements remain separately governed and must be validated before each product accepts live payment.
 
 ## Definition of done
 
