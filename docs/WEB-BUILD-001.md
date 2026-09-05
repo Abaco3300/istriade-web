@@ -1,24 +1,25 @@
 # WEB-BUILD-001 — Corporate Website Build Execution State
 
-## Authorization boundary
+## Authorization history
 
-The Founder authorized technical/reversible build work after completion of WEB-REC-001A through WEB-REC-001K.
+The Founder first authorized technical/reversible build work after completion of WEB-REC-001A through WEB-REC-001K, and later explicitly authorized the Human Gate to merge PR #1 into `main`.
 
-### Authorized
-- Create a non-production build branch.
-- Replace the historical static HTML implementation on that branch.
-- Build the approved Next.js/TypeScript corporate website.
-- Add canonical brand assets without modification.
-- Add content/legal drafts frozen in WEB-REC-001K.
-- Add automated guards and quality checks.
-- Open a draft PR for verification.
+## Completed
+- Created non-production branch `feat/corporate-rebuild-v1`.
+- Replaced the historical static HTML implementation on that branch.
+- Built the approved Next.js/TypeScript corporate website.
+- Added canonical brand assets without modification.
+- Added content/legal drafts frozen in WEB-REC-001K.
+- Added automated guards and quality checks.
+- Opened and verified PR #1.
+- Passed clean-environment CI, production build, HTTP smoke tests, real 404 checks, robots/sitemap checks, product-link governance checks and initial desktop/mobile visual QA.
+- Merged PR #1 to `main` as commit `f5a6028ba34412154a2a1fbb9b3663e9da5d1fea`.
 
-### Not authorized
-- Merge to `main`.
+## Still not authorized
+- Upload this rebuild to the production Cloudflare Worker.
 - Change production DNS.
 - Change Cloudflare origin/routing.
-- Retire or replace the current website.
-- Upload this rebuild to the production Cloudflare Worker.
+- Retire or replace the currently deployed website.
 - Activate product purchase links.
 - Activate product-specific external links before their publication gates.
 - Claim corporate legal drafts are legally adopted.
@@ -34,11 +35,7 @@ Current corporate production runtime:
 - Deployment model: manual upload / dashboard deployment
 - Git auto-deploy from this repository: not used
 
-This means branch work and a future merge to `main` are technically separated from the live Cloudflare deployment. A production upload/cutover remains a later explicit Human Gate.
-
-## Branch
-
-`feat/corporate-rebuild-v1`
+Merging to `main` does **not** publish the rebuild. Production upload/cutover remains a separate explicit Human Gate.
 
 ## Current verified state
 
@@ -51,8 +48,10 @@ This means branch work and a future merge to `main` are technically separated fr
 - robots/sitemap checks: PASS
 - Held product-link check: PASS
 - Initial desktop/mobile visual QA: PASS
+- Merge to main: COMPLETE
 - Production deployment: NOT STARTED
+- Commercial activation: NOT AUTHORIZED
 
-## Build lifecycle
+## Lifecycle
 
-BUILD → TEST → PRIVATE VISUAL QA → HUMAN GATE → MERGE → PRODUCTION UPLOAD/CUTOVER (separate later gate) → LIVE VERIFICATION
+BUILD → TEST → PRIVATE VISUAL QA → MERGE ✅ → PRODUCTION PACKAGE → HUMAN GATE → CLOUDFLARE UPLOAD/CUTOVER → LIVE VERIFICATION
