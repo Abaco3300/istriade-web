@@ -81,7 +81,7 @@ jobs:
           expected='We build intelligent products for real business operations.'
           ready=0
           for attempt in $(seq 1 30); do
-            if curl -fsSL --max-time 15 "$LIVE_ORIGIN/" | grep -Fq "$expected"; then
+            if curl -fsSL --max-time 15 -H 'Cache-Control: no-cache' "$LIVE_ORIGIN/" | grep -Fq "$expected"; then
               ready=1
               break
             fi
@@ -90,26 +90,35 @@ jobs:
           test "$ready" = "1" || { echo "New homepage did not become visible"; exit 1; }
 
           for path in / /about/ /products/ /capabilities/ /approach/ /contact/ /legal/ /privacy/ /terms/ /robots.txt /sitemap.xml; do
-            code="$(curl -sSL -o /tmp/istriade-live-body -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN${path}")"
-            test "$code" = "200" || { echo "$path returned $code"; exit 1; }
+            path_ready=0
+            for attempt in $(seq 1 20); do
+              code="$(curl -sSL -H 'Cache-Control: no-cache' -o /tmp/istriade-live-body -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN${path}")"
+              if [ "$code" = "200" ]; then
+                path_ready=1
+                break
+              fi
+              echo "$path returned $code on attempt $attempt/20; retrying"
+              sleep 2
+            done
+            test "$path_ready" = "1" || { echo "$path did not reach HTTP 200 within the propagation window"; exit 1; }
           done
 
-          missing_code="$(curl -sS -o /tmp/istriade-live-404 -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN/definitely-missing-page/")"
+          missing_code="$(curl -sS -H 'Cache-Control: no-cache' -o /tmp/istriade-live-404 -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN/definitely-missing-page/")"
           test "$missing_code" = "404" || { echo "Expected live 404, got $missing_code"; exit 1; }
           grep -Fq 'Page not found' /tmp/istriade-live-404
 
-          redirect_headers="$(curl -sSI --max-time 15 "$LIVE_ORIGIN/company" | tr -d '\r')"
+          redirect_headers="$(curl -sSI -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/company" | tr -d '\r')"
           printf '%s\n' "$redirect_headers" | grep -Eq '^HTTP/[^ ]+ 301'
           printf '%s\n' "$redirect_headers" | grep -Eqi '^location: .*/about/?$'
 
-          home_headers="$(curl -sSI --max-time 15 "$LIVE_ORIGIN/" | tr -d '\r')"
+          home_headers="$(curl -sSI -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/" | tr -d '\r')"
           printf '%s\n' "$home_headers" | grep -Eqi '^x-content-type-options: nosniff$'
           printf '%s\n' "$home_headers" | grep -Eqi '^referrer-policy: strict-origin-when-cross-origin$'
 
-          curl -fsSL --max-time 15 "$LIVE_ORIGIN/robots.txt" | grep -Fq 'Sitemap: https://istriadegroup.com/sitemap.xml'
-          curl -fsSL --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/about/'
+          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/robots.txt" | grep -Fq 'Sitemap: https://istriadegroup.com/sitemap.xml'
+          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/about/'
 
-          live_home="$(curl -fsSL --max-time 15 "$LIVE_ORIGIN/")"
+          live_home="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/")"
           ! printf '%s' "$live_home" | grep -q 'href="https://sygvana.com'
           ! printf '%s' "$live_home" | grep -q 'href="https://irmya.com'
 
