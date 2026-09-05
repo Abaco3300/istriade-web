@@ -35,7 +35,8 @@ Current GitHub connector cannot resolve that repository. Therefore:
 
 - historical repository existence is recorded;
 - current connected-access verification is **NOT VERIFIED**;
-- no new repository should be created merely to replace an inaccessible historical reference without an explicit migration decision.
+- controlled migration Option B has been approved;
+- the replacement product environment must remain independent from the corporate `istriade-web` repository.
 
 ISTRIADE corporate source of truth:
 
@@ -52,7 +53,7 @@ Target architecture:
 
 Rationale: the corporate repository explicitly separates corporate product discovery from product-level commercial truth and prohibits product pricing / checkout from being embedded in the corporate website. A dedicated ISTRIADE subdomain preserves that boundary while making DoesAISeeMe visibly part of ISTRIADE.
 
-Current destination state: **PROPOSED / NOT DEPLOYED / NOT DNS-VERIFIED**.
+Current destination state: **APPROVED TARGET / NOT DEPLOYED / NOT DNS-VERIFIED**.
 
 ## 5. Stripe Live verified state
 
@@ -67,7 +68,7 @@ Verified 2026-09-05:
 - Billing: one-time
 - Payment Link: `plink_1UCALVCFnK3sr8WzAGqrqqf8`
 - Live checkout URL: `https://buy.stripe.com/14A3cu5ev3eQ8yDg6MejK00`
-- Payment Link currently active at review time: YES
+- Payment Link current state: **INACTIVE**
 - Stripe Tax: OFF
 - Market policy metadata: US validation only
 - Fulfillment metadata: manual_or_semi_manual
@@ -75,7 +76,7 @@ Verified 2026-09-05:
 Governance target for this readiness review:
 
 - LIVE checkout must remain HOLD until all readiness gates pass.
-- An active Stripe object is not equivalent to commercial authorization.
+- An existing Stripe product / price / Payment Link is not equivalent to commercial authorization.
 
 ## 6. Checkout data capture
 
@@ -89,6 +90,15 @@ Current Payment Link captures:
 - target market / location.
 
 Hosted confirmation states report delivery by email within 24 hours.
+
+Fiscal-location requirement before external charging:
+
+- `business_establishment_country=US` is not sufficient for US state-level tax governance;
+- buyer country must be known before charge;
+- buyer state must be known before charge;
+- billing address capture remains required;
+- the tax decision for the transaction must be based on the buyer jurisdiction plus applicable nexus and product/service taxability rules;
+- an API/search failure, absent tax configuration or unresolved classification must never silently default to a taxable/non-taxable conclusion.
 
 ## 7. Legal, refund / cancellation and support
 
@@ -145,6 +155,8 @@ External sale additionally requires:
 - order-to-intake handoff that a normal customer can complete without founder intervention;
 - intake semantic QA before analysis;
 - support/refund process usable by external customers;
+- buyer state available before charge for US state-level tax determination;
+- applicable nexus/taxability decision resolved for the transaction;
 - no internal/test language or founder-only assumptions;
 - fulfillment time and economics measured on a real external order.
 
@@ -170,6 +182,26 @@ Current: STAGED / DISABLED.
 PASS when current ISTRIADE legal/commercial policy deployment is verified and product-specific pre-purchase disclosure is complete.
 Current: PARTIAL / BLOCKING.
 
+### GATE R4A — US state tax determination
+PASS when the checkout/tax path can determine the buyer's US state before charge and a documented transaction decision can be made using buyer jurisdiction, ISTRIADE nexus status and DoesAISeeMe taxability for that jurisdiction.
+
+Minimum technical conditions:
+
+- `BUYER_COUNTRY_CAPTURE = REQUIRED`
+- `BUYER_STATE_CAPTURE = REQUIRED`
+- `BILLING_ADDRESS_CAPTURE = REQUIRED`
+- `STATE_TAXABILITY_RULE = RESOLVED`
+- `NEXUS_RULE = RESOLVED`
+- `TAX_DECISION_BEFORE_CHARGE = REQUIRED`
+
+Current: **NOT YET RESOLVED / BLOCKING**.
+
+Current tax posture must not be overstated:
+
+- Wyoming/current-service classification: **LIKELY NON-TAXABLE FOR CURRENT CLASSIFICATION**, not final legal opinion;
+- US multi-state taxability: **NOT YET RESOLVED**;
+- `LIVE_PAYMENT = HOLD` until this gate and the other readiness gates pass.
+
 ### GATE R5 — Checkout
 PASS when checkout points from the canonical product destination, captures required purchase data, displays correct scope/delivery disclosure and has no test/internal copy.
 Current: FUNCTIONALLY VALIDATED but activation must remain HOLD.
@@ -183,7 +215,7 @@ PASS when the controlled fulfillment pipeline remains reproducible with QA requi
 Current: PASS for controlled E2E; first external execution not yet observed.
 
 ### GATE R8 — Commercial activation
-PASS only after R1-R7 are satisfied and Founder explicitly authorizes LIVE_PAYMENT.
+PASS only after R1-R7 plus R4A are satisfied and Founder explicitly authorizes LIVE_PAYMENT.
 Current: NOT AUTHORIZED by this readiness review.
 
 ## 11. Conditions for public Product Registry inclusion
@@ -198,6 +230,7 @@ DoesAISeeMe may be enabled in the public `istriadegroup.com` Product Registry wh
 - support email is operational;
 - intake path is operational;
 - checkout state matches governance (HOLD until authorization, ACTIVE only after explicit Founder gate);
+- state-level US tax determination gate R4A is resolved before charging external customers;
 - controlled E2E remains PASS;
 - Product Registry entry is explicitly enabled (`cardEnabled=true`) only at the authorized publication step.
 
@@ -205,15 +238,17 @@ DoesAISeeMe may be enabled in the public `istriadegroup.com` Product Registry wh
 
 - FIRST REVENUE CANDIDATE: YES
 - PRIMARY ISTRIADE LAUNCH PRODUCT: NO — remains ISTRIADE SEO Agent
+- CONTROLLED MIGRATION OPTION B: APPROVED
 - PRODUCT BUILD: EXISTS / controlled fulfillment proven
 - OLD VERCEL DESTINATION: NOT VERIFIED
 - OLD PRODUCT REPOSITORY ACCESS: NOT VERIFIED
+- CANONICAL TARGET: `https://doesaiseeme.istriadegroup.com`
 - STRIPE LIVE PRODUCT / PRICE / LINK: VERIFIED
-- LIVE PAYMENT LINK AT REVIEW TIME: ACTIVE, but governance target is HOLD
+- LIVE PAYMENT LINK: INACTIVE
+- US MULTI-STATE TAXABILITY: NOT YET RESOLVED
 - CUSTOMER INTAKE: PASS
 - CONTROLLED E2E: PASS
 - EXTERNAL CUSTOMER VALIDATION: 0 / 3
 - PUBLIC PRODUCT REGISTRY: STAGED, DISABLED
 - PUBLIC/COMMERCIAL READINESS: NOT YET PASS
 - LIVE_PAYMENT AUTHORIZATION: HOLD
-
