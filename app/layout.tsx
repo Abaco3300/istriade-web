@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 const defaultTitle = "ISTRIADE GROUP — AI Software, Intelligent Systems & Business Technology";
 const defaultDescription =
   "ISTRIADE GROUP LLC develops AI-powered software, intelligent systems and specialized digital services across commerce, search visibility, automation, content and business operations.";
+const socialImage = `${site.url}/opengraph-image`;
 
 export const viewport: Viewport = {
   themeColor: "#071015",
@@ -35,11 +36,13 @@ export const metadata: Metadata = {
     siteName: site.legalName,
     title: defaultTitle,
     description: defaultDescription,
+    images: [{ url: socialImage, width: 1200, height: 630, alt: site.legalName }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: defaultTitle,
     description: defaultDescription,
+    images: [socialImage],
   },
   icons: {
     icon: "/brand/istriade/07-istriade-favicon.svg",
