@@ -3,6 +3,7 @@ export type ProductRecord = {
   name: string;
   category: string;
   summary: string;
+  ownershipLabel: string | null;
   accent: "cyan" | "blue" | "violet" | "teal";
   featured: boolean;
   cardEnabled: boolean;
@@ -20,6 +21,7 @@ export const products: ProductRecord[] = [
     category: "Commerce Intelligence",
     summary:
       "Decision intelligence for commerce businesses that need clearer visibility into performance, opportunities and next actions.",
+    ownershipLabel: null,
     accent: "cyan",
     featured: true,
     cardEnabled: true,
@@ -35,6 +37,7 @@ export const products: ProductRecord[] = [
     category: "Search Visibility & SEO Operations",
     summary:
       "Evidence-driven SEO analysis, opportunity discovery and controlled implementation for businesses seeking stronger visibility across modern search environments.",
+    ownershipLabel: null,
     accent: "blue",
     featured: true,
     cardEnabled: true,
@@ -47,16 +50,17 @@ export const products: ProductRecord[] = [
   {
     id: "doesaiseeme",
     name: "DoesAISeeMe",
-    category: "AI Search Visibility",
+    category: "AI Search Visibility Intelligence",
     summary:
-      "A focused AI Search Visibility diagnostic that tests whether major AI answer environments can recognize, surface and recommend a business across branded and non-branded discovery queries.",
+      "Discover how your company appears across AI-powered search and answer environments. DoesAISeeMe measures whether AI systems recognize your brand, surface it for relevant queries, recommend it, and understand the sources behind its visibility.",
+    ownershipLabel: "An ISTRIADE product",
     accent: "blue",
     featured: false,
     cardEnabled: false,
     externalLinkEnabled: false,
     websiteUrl: null,
     intendedDomain: "https://doesaiseeme.istriadegroup.com",
-    publicStatusLabel: "First Revenue Candidate",
+    publicStatusLabel: null,
     order: 3,
   },
   {
@@ -65,6 +69,7 @@ export const products: ProductRecord[] = [
     category: "AI-Assisted Video & Content Production",
     summary:
       "Structured audiovisual production systems combining AI, automation and human creative control.",
+    ownershipLabel: null,
     accent: "violet",
     featured: true,
     cardEnabled: true,
@@ -80,6 +85,7 @@ export const products: ProductRecord[] = [
     category: "AI-Operated Business Systems",
     summary:
       "A structured operating approach for transforming objectives into governed, coordinated and verifiable execution.",
+    ownershipLabel: null,
     accent: "teal",
     featured: true,
     cardEnabled: true,
@@ -91,6 +97,10 @@ export const products: ProductRecord[] = [
   },
 ];
 
-export const featuredProducts = products
-  .filter((product) => product.featured && product.cardEnabled)
+export const publicProducts = products
+  .filter((product) => product.cardEnabled)
+  .sort((a, b) => a.order - b.order);
+
+export const featuredProducts = publicProducts
+  .filter((product) => product.featured)
   .sort((a, b) => a.order - b.order);
