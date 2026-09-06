@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { getInsight, insights } from "@/data/insights";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
+import styles from "../insights.module.css";
 
 type InsightPageProps = {
   params: Promise<{ slug: string }>;
@@ -50,29 +51,29 @@ export default async function InsightArticlePage({ params }: InsightPageProps) {
   return (
     <>
       <StructuredData data={structuredData} />
-      <article className="insight-article">
-        <header className="page-hero insight-hero">
-          <div className="container insight-shell">
+      <article>
+        <header className="page-hero">
+          <div className={`container ${styles.heroShell}`}>
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link href="/">Home</Link><span>/</span><Link href="/insights/">Insights</Link><span>/</span><span>{insight.category}</span>
             </nav>
             <p className="eyebrow">{insight.category}</p>
             <h1>{insight.title}</h1>
             <p className="page-lead">{insight.description}</p>
-            <p className="insight-byline">By ISTRIADE GROUP LLC · Published {insight.published} · {insight.readingTime}</p>
+            <p className={styles.byline}>By ISTRIADE GROUP LLC · Published {insight.published} · {insight.readingTime}</p>
           </div>
         </header>
 
         <section className="section">
-          <div className="container insight-layout">
-            <aside className="insight-aside">
+          <div className={`container ${styles.layout}`}>
+            <aside className={styles.aside}>
               <p className="eyebrow">Framework</p>
               <p>{insight.summary}</p>
               <Link className="text-link" href="/insights/">All insights →</Link>
             </aside>
-            <div className="article-body">
+            <div className={styles.body}>
               {insight.sections.map((section) => (
-                <section key={section.heading} className="article-section">
+                <section key={section.heading} className={styles.section}>
                   <h2>{section.heading}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                   {section.bullets ? (
@@ -80,7 +81,7 @@ export default async function InsightArticlePage({ params }: InsightPageProps) {
                   ) : null}
                 </section>
               ))}
-              <div className="article-boundary">
+              <div className={styles.boundary}>
                 <p><strong>About this article.</strong> This is an ISTRIADE corporate perspective intended to explain an operating framework. It is not a product specification, contractual commitment or guarantee of a business outcome.</p>
               </div>
             </div>
