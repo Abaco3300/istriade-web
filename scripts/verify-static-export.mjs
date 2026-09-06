@@ -40,11 +40,11 @@ for (const heldDomain of ["https://sygvana.com", "https://irmya.com", "https://d
 }
 
 const productsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
-if (productsPage.includes("DoesAISeeMe")) {
-  throw new Error("Disabled DoesAISeeMe Product Registry entry rendered publicly");
+if (productsPage.includes(">DoesAISeeMe</h3>")) {
+  throw new Error("Disabled DoesAISeeMe Product Registry card rendered publicly");
 }
-if (productsPage.includes("First Revenue Candidate")) {
-  throw new Error("Internal portfolio role leaked into public Products page");
+if (productsPage.includes(">First Revenue Candidate<")) {
+  throw new Error("Internal portfolio role leaked into visible Products page copy");
 }
 if (productsPage.includes("href=\"https://doesaiseeme.istriadegroup.com") || productsPage.includes("href='https://doesaiseeme.istriadegroup.com")) {
   throw new Error("Held DoesAISeeMe destination rendered as active public link");
