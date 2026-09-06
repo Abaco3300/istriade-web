@@ -18,7 +18,7 @@ Corporate contact: **contact@istriadegroup.com**
 
 ## Current state
 
-- Corporate website: live at `https://istriadegroup.com/`
+- Production website: **live** at `https://istriadegroup.com/`
 - Current production runtime: Cloudflare Worker `tiny-pond-1463`
 - Last verified production deployment: GitHub Actions run `34066286885`
 - Last verified production source commit: `4446c7d7f7014e987f7d605c8ca194338890934c`
