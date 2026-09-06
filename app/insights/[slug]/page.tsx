@@ -39,6 +39,7 @@ export default async function InsightArticlePage({ params }: InsightPageProps) {
     "@id": `${articleUrl}#article`,
     headline: insight.title,
     description: insight.description,
+    image: `${site.url}/opengraph-image`,
     datePublished: insight.published,
     dateModified: insight.updated,
     inLanguage: "en-US",
