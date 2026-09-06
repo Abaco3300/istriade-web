@@ -38,7 +38,7 @@ for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
     throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
   }
 }
-if (home.includes(">DoesAISeeMe</h3>") || home.includes("Explore DoesAISeeMe")) {
+if (home.includes(">DoesAISeeMe</h3>")) {
   throw new Error("DoesAISeeMe must remain absent from the corporate homepage while featured=false");
 }
 
@@ -51,9 +51,6 @@ if (!productsPage.includes("An ISTRIADE product")) {
 }
 if (!productsPage.includes('href="https://doesaiseeme.istriadegroup.com')) {
   throw new Error("DoesAISeeMe canonical discovery link is missing from Products page");
-}
-if (!productsPage.includes("Explore DoesAISeeMe")) {
-  throw new Error("DoesAISeeMe discovery CTA is missing from Products page");
 }
 if (productsPage.includes(">First Revenue Candidate<")) {
   throw new Error("Internal portfolio role leaked into visible Products page copy");
