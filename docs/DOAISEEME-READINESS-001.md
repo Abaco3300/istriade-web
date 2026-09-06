@@ -152,7 +152,6 @@ External sale additionally requires:
 - order-to-intake handoff that a normal customer can complete without founder intervention;
 - intake semantic QA before analysis;
 - support/refund process usable by external customers;
-- DoesAISeeMe mapped to ISTRIADE's canonical tax classification / nexus-monitoring framework;
 - no internal/test language or founder-only assumptions;
 - fulfillment time and economics measured on a real external order.
 
@@ -189,21 +188,32 @@ Canonical ISTRIADE framework already established in the SEO Agent commercial/tax
 - registration/collection once a real legal obligation exists;
 - Stripe Tax remaining off/not independently authoritative until the relevant launch decision authorizes its use.
 
-For DoesAISeeMe, PASS requires:
+Product-level conformity is now recorded in:
 
-- commercial substance mapped to the existing ISTRIADE tax-classification framework;
-- no product-specific fact contradicting the existing nexus posture;
-- checkout continues capturing the location data required by the canonical monitoring/decision process;
-- any future threshold, nexus or registration trigger is handled through the existing monitoring framework rather than a new ad hoc product rule.
+- `Abaco3300/doesaiseeme` → `docs/DOESAIAISEEME-FISCAL-CONFORMITY-001.md`
 
-Current: **PARTIAL — canonical ISTRIADE fiscal policy exists; DoesAISeeMe product-level conformity mapping remains to be recorded.**
+Mapping result:
 
-Important status distinction:
+- DoesAISeeMe is a one-time customized, manually/semi-manually fulfilled diagnostic service;
+- its commercial substance is materially aligned with the existing ISTRIADE Search Visibility Diagnostic / consulting-service rationale;
+- it creates no separate nexus policy;
+- it inherits ISTRIADE's central nexus/economic-threshold monitoring;
+- it inherits the approved bounded US launch posture `NO_REGISTRATION / NO_COLLECTION / UNTIL_REAL_OBLIGATION_EXISTS`;
+- billing-address/location capture remains appropriate transaction evidence and monitoring input;
+- no bespoke 50-state decision engine is required merely to inherit the established ISTRIADE launch posture;
+- any newly identified real tax obligation must be handled through the canonical ISTRIADE registration/collection process before affected future transactions;
+- Stripe Tax remains OFF and is not activated by this mapping.
+
+Current: **PASS — product-level fiscal conformity mapped to canonical ISTRIADE policy, subject to continuing central monitoring and no newly identified obligation.**
+
+Status distinction:
 
 - `ISTRIADE_FISCAL_POLICY = CANONICAL / ESTABLISHED`
-- `STRIPE_TAX = OFF / NOT YET AUTHORIZED FOR INDEPENDENT ACTIVATION`
-- `DOESAIAISEEME_TAX_CONFORMITY_MAPPING = PENDING`
-- `LIVE_PAYMENT = HOLD` for overall readiness, not because ISTRIADE lacks a fiscal policy.
+- `DOESAIAISEEME_TAX_CONFORMITY_MAPPING = PASS`
+- `CURRENT_COLLECTION_POSTURE = NO_REGISTRATION / NO_COLLECTION / UNTIL_REAL_OBLIGATION_EXISTS`
+- `STRIPE_TAX = OFF`
+- `FISCAL_POLICY_BLOCKER = NO`
+- `LIVE_PAYMENT = HOLD` for remaining overall readiness gates, not for lack of fiscal policy.
 
 ### GATE R5 — Checkout
 PASS when checkout points from the canonical product destination, captures required purchase data, displays correct scope/delivery disclosure and has no test/internal copy.
@@ -253,7 +263,8 @@ DoesAISeeMe may be enabled in the public `istriadegroup.com` Product Registry wh
 - STRIPE LIVE PRODUCT / PRICE / LINK: VERIFIED
 - LIVE PAYMENT LINK: INACTIVE
 - ISTRIADE FISCAL POLICY: CANONICAL / ESTABLISHED
-- DOESAISEEME FISCAL CONFORMITY MAPPING: PENDING
+- DOESAISEEME FISCAL CONFORMITY MAPPING: PASS
+- FISCAL POLICY BLOCKER: NO
 - CUSTOMER INTAKE: PASS
 - CONTROLLED E2E: PASS
 - EXTERNAL CUSTOMER VALIDATION: 0 / 3
