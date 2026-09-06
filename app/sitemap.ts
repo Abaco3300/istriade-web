@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/capabilities/",
     "/approach/",
     "/insights/",
+    "/trust/",
     "/contact/",
     "/legal/",
     "/privacy/",
