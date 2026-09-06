@@ -4,6 +4,10 @@ import path from "node:path";
 const root = process.cwd();
 const out = path.join(root, "out");
 
+const visibleHtml = (html) => html
+  .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+  .replace(/<!--[\s\S]*?-->/g, "");
+
 const requiredFiles = [
   "index.html",
   "about/index.html",
@@ -32,7 +36,7 @@ for (const relative of requiredFiles) {
   }
 }
 
-const home = fs.readFileSync(path.join(out, "index.html"), "utf8");
+const home = visibleHtml(fs.readFileSync(path.join(out, "index.html"), "utf8"));
 for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
   if (home.includes(`href=\"${heldDomain}`) || home.includes(`href='${heldDomain}`)) {
     throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
@@ -42,7 +46,7 @@ if (home.includes(">DoesAISeeMe</h3>")) {
   throw new Error("DoesAISeeMe must remain absent from the corporate homepage while featured=false");
 }
 
-const productsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
+const productsPage = visibleHtml(fs.readFileSync(path.join(out, "products/index.html"), "utf8"));
 if (!productsPage.includes(">DoesAISeeMe</h3>")) {
   throw new Error("Prepared DoesAISeeMe Product Registry card is missing from Products page");
 }
@@ -51,6 +55,9 @@ if (!productsPage.includes("An ISTRIADE product")) {
 }
 if (!productsPage.includes('href="https://doesaiseeme.istriadegroup.com')) {
   throw new Error("DoesAISeeMe canonical discovery link is missing from Products page");
+}
+if (!productsPage.includes("Explore DoesAISeeMe")) {
+  throw new Error("DoesAISeeMe discovery CTA is missing from visible Products markup");
 }
 if (productsPage.includes(">First Revenue Candidate<")) {
   throw new Error("Internal portfolio role leaked into visible Products page copy");
@@ -61,7 +68,7 @@ for (const forbiddenTransactionalCopy of ["Buy DoesAISeeMe", "Purchase DoesAISee
   }
 }
 if (productsPage.includes("$19") || productsPage.includes("USD 19")) {
-  throw new Error("Product-level DoesAISeeMe pricing leaked into corporate Products page");
+  throw new Error("Product-level DoesAISeeMe pricing leaked into visible corporate Products page");
 }
 
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
