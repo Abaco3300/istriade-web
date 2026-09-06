@@ -31,7 +31,10 @@ export function SiteFooter() {
         </div>
         <div>
           <h2>Company</h2>
-          <ul>{navItems.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}</ul>
+          <ul>
+            {navItems.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}
+            <li><Link href="/trust/">Trust & Transparency</Link></li>
+          </ul>
         </div>
         <div>
           <h2>Legal & Commercial</h2>
