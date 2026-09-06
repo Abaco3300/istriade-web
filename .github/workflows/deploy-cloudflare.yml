@@ -65,7 +65,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          npx --yes wrangler@${WRANGLER_VERSION} deploy --message "ISTRIADE corporate v1 from ${GITHUB_SHA}" 2>&1 | tee deployment-evidence/deploy-output.txt
+          npx --yes wrangler@${WRANGLER_VERSION} deploy --message "ISTRIADE corporate release from ${GITHUB_SHA}" 2>&1 | tee deployment-evidence/deploy-output.txt
 
       - name: Verify live production
         id: live_smoke
@@ -85,7 +85,27 @@ jobs:
           done
           test "$ready" = "1" || { echo "New homepage did not become visible"; exit 1; }
 
-          for path in / /about/ /products/ /capabilities/ /approach/ /contact/ /legal/ /privacy/ /terms/ /commercial-policies/ /robots.txt /sitemap.xml; do
+          for path in \
+            / \
+            /about/ \
+            /products/ \
+            /capabilities/ \
+            /approach/ \
+            /insights/ \
+            /insights/ai-search-visibility-business-framework/ \
+            /insights/human-governed-ai-operations/ \
+            /insights/from-signal-to-execution/ \
+            /trust/ \
+            /contact/ \
+            /legal/ \
+            /privacy/ \
+            /terms/ \
+            /commercial-policies/ \
+            /robots.txt \
+            /sitemap.xml \
+            /llms.txt \
+            /manifest.webmanifest \
+            /opengraph-image; do
             path_ready=0
             for attempt in $(seq 1 20); do
               code="$(curl -sSL -H 'Cache-Control: no-cache' -o /tmp/istriade-live-body -w '%{http_code}' --max-time 15 "$LIVE_ORIGIN${path}")"
@@ -114,14 +134,60 @@ jobs:
           home_headers="$(curl -sSI -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/" | tr -d '\r')"
           printf '%s\n' "$home_headers" | grep -Eqi '^x-content-type-options: nosniff$'
           printf '%s\n' "$home_headers" | grep -Eqi '^referrer-policy: strict-origin-when-cross-origin$'
+          printf '%s\n' "$home_headers" | grep -Eqi '^permissions-policy: .*camera=\(\).*microphone=\(\).*geolocation=\(\).*payment=\(\)'
 
-          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/robots.txt" | grep -Fq 'Sitemap: https://istriadegroup.com/sitemap.xml'
-          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/about/'
-          curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml" | grep -Fq 'https://istriadegroup.com/commercial-policies/'
+          live_robots="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/robots.txt")"
+          printf '%s' "$live_robots" | grep -Fq 'Sitemap: https://istriadegroup.com/sitemap.xml'
+          printf '%s' "$live_robots" | grep -Fq 'OAI-SearchBot'
+
+          live_sitemap="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/sitemap.xml")"
+          for canonical in \
+            'https://istriadegroup.com/about/' \
+            'https://istriadegroup.com/products/' \
+            'https://istriadegroup.com/insights/' \
+            'https://istriadegroup.com/insights/ai-search-visibility-business-framework/' \
+            'https://istriadegroup.com/insights/human-governed-ai-operations/' \
+            'https://istriadegroup.com/insights/from-signal-to-execution/' \
+            'https://istriadegroup.com/trust/' \
+            'https://istriadegroup.com/commercial-policies/'; do
+            printf '%s' "$live_sitemap" | grep -Fq "$canonical"
+          done
 
           live_home="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/")"
           ! printf '%s' "$live_home" | grep -q 'href="https://sygvana.com'
           ! printf '%s' "$live_home" | grep -q 'href="https://irmya.com'
+          printf '%s' "$live_home" | grep -Fq 'property="og:site_name"'
+          printf '%s' "$live_home" | grep -Fq 'name="twitter:card"'
+          printf '%s' "$live_home" | grep -Fq 'summary_large_image'
+          printf '%s' "$live_home" | grep -Fq 'rel="manifest"'
+          printf '%s' "$live_home" | grep -Fq '/manifest.webmanifest'
+          printf '%s' "$live_home" | grep -Fq 'rel="describedby"'
+          printf '%s' "$live_home" | grep -Fq '/llms.txt'
+
+          live_products="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/products/")"
+          printf '%s' "$live_products" | grep -Fq 'DoesAISeeMe'
+          printf '%s' "$live_products" | grep -Fq 'https://doesaiseeme.istriadegroup.com'
+          ! printf '%s' "$live_products" | grep -Fq 'First Revenue Candidate'
+
+          live_insights="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/insights/")"
+          printf '%s' "$live_insights" | grep -Fq 'AI Search Visibility: A Practical Framework for Businesses'
+          printf '%s' "$live_insights" | grep -Fq 'Human-Governed AI Operations: Where Automation Needs Control'
+          printf '%s' "$live_insights" | grep -Fq 'From Signal to Execution: Designing AI Systems Around Business Decisions'
+
+          live_trust="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/trust/")"
+          printf '%s' "$live_trust" | grep -Fq 'Trust &amp; Transparency'
+          printf '%s' "$live_trust" | grep -Fq 'ISTRIADE GROUP LLC'
+          printf '%s' "$live_trust" | grep -Fq 'contact@istriadegroup.com'
+
+          live_llms="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/llms.txt")"
+          printf '%s' "$live_llms" | grep -Fq '# ISTRIADE GROUP LLC'
+          printf '%s' "$live_llms" | grep -Fq 'https://istriadegroup.com/insights/'
+          printf '%s' "$live_llms" | grep -Fq 'https://istriadegroup.com/trust/'
+          printf '%s' "$live_llms" | grep -Fq 'https://doesaiseeme.istriadegroup.com/'
+
+          live_manifest="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/manifest.webmanifest")"
+          printf '%s' "$live_manifest" | grep -Fq 'ISTRIADE GROUP LLC'
+          printf '%s' "$live_manifest" | grep -Fq '07-istriade-favicon.svg'
 
           live_commercial="$(curl -fsSL -H 'Cache-Control: no-cache' --max-time 15 "$LIVE_ORIGIN/commercial-policies/")"
           printf '%s' "$live_commercial" | grep -Fq 'Refunds'
