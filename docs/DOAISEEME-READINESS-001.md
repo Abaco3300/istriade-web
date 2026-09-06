@@ -15,28 +15,32 @@ Primary ISTRIADE launch product remains: ISTRIADE SEO Agent
 
 ## 2. Current landing and deployment reality
 
-Previously recorded landing:
+Historical production landing:
 
 - `https://doesaiseeme-mvp.vercel.app`
+- Vercel project: `doesaiseeme`
+- production source: `main`
+- production commit observed in Vercel Dashboard: `9552ca5`
 
-Current verification result on 2026-09-05:
+Controlled migration preview:
 
-- the previously recorded Vercel project ID returns 404;
-- the connected Vercel team does not list a `doesaiseeme` project;
-- therefore the old Vercel deployment is **NOT VERIFIED** and must not be treated as the canonical production destination.
+- source branch: `controlled-migration-v1`
+- Vercel Preview exists for that branch;
+- visual QA: **PASS — Founder verified**;
+- preview is intentionally non-commercial;
+- runtime HTTP/header verification through the connected Vercel API remains unavailable because of connector/API inconsistency, so header execution is not overstated as externally verified.
+
+The historical production landing is not the canonical target for the migrated product.
 
 ## 3. Repository / build environment
 
-Previously recorded source repository:
+Source repository:
 
 - `Abaco3300/doesaiseeme`
-
-Current GitHub connector cannot resolve that repository. Therefore:
-
-- historical repository existence is recorded;
-- current connected-access verification is **NOT VERIFIED**;
-- controlled migration Option B has been approved;
-- the replacement product environment must remain independent from the corporate `istriade-web` repository.
+- repository access: **VERIFIED**
+- controlled migration branch: `controlled-migration-v1`
+- product PR: `#1 — Controlled migration v1 — preview-only hardening`
+- PR state: **OPEN / DRAFT / UNMERGED**
 
 ISTRIADE corporate source of truth:
 
@@ -53,7 +57,7 @@ Target architecture:
 
 Rationale: the corporate repository explicitly separates corporate product discovery from product-level commercial truth and prohibits product pricing / checkout from being embedded in the corporate website. A dedicated ISTRIADE subdomain preserves that boundary while making DoesAISeeMe visibly part of ISTRIADE.
 
-Current destination state: **APPROVED TARGET / NOT DEPLOYED / NOT DNS-VERIFIED**.
+Current destination state: **APPROVED TARGET / NOT DEPLOYED TO CANONICAL DOMAIN / NOT DNS-VERIFIED**.
 
 ## 5. Stripe Live verified state
 
@@ -91,14 +95,7 @@ Current Payment Link captures:
 
 Hosted confirmation states report delivery by email within 24 hours.
 
-Fiscal-location requirement before external charging:
-
-- `business_establishment_country=US` is not sufficient for US state-level tax governance;
-- buyer country must be known before charge;
-- buyer state must be known before charge;
-- billing address capture remains required;
-- the tax decision for the transaction must be based on the buyer jurisdiction plus applicable nexus and product/service taxability rules;
-- an API/search failure, absent tax configuration or unresolved classification must never silently default to a taxable/non-taxable conclusion.
+Tax/location implementation must conform to ISTRIADE's existing canonical fiscal policy. This readiness review does **not** create a new company-wide tax policy for DoesAISeeMe.
 
 ## 7. Legal, refund / cancellation and support
 
@@ -155,8 +152,7 @@ External sale additionally requires:
 - order-to-intake handoff that a normal customer can complete without founder intervention;
 - intake semantic QA before analysis;
 - support/refund process usable by external customers;
-- buyer state available before charge for US state-level tax determination;
-- applicable nexus/taxability decision resolved for the transaction;
+- DoesAISeeMe mapped to ISTRIADE's canonical tax classification / nexus-monitoring framework;
 - no internal/test language or founder-only assumptions;
 - fulfillment time and economics measured on a real external order.
 
@@ -182,29 +178,36 @@ Current: STAGED / DISABLED.
 PASS when current ISTRIADE legal/commercial policy deployment is verified and product-specific pre-purchase disclosure is complete.
 Current: PARTIAL / BLOCKING.
 
-### GATE R4A — US state tax determination
-PASS when the checkout/tax path can determine the buyer's US state before charge and a documented transaction decision can be made using buyer jurisdiction, ISTRIADE nexus status and DoesAISeeMe taxability for that jurisdiction.
+### GATE R4A — Fiscal-policy conformity
+Purpose: verify that DoesAISeeMe is implemented under ISTRIADE's existing canonical fiscal governance. This gate does **not** redefine company-wide US sales-tax policy.
 
-Minimum technical conditions:
+Canonical ISTRIADE framework already established in the SEO Agent commercial/tax documentation includes:
 
-- `BUYER_COUNTRY_CAPTURE = REQUIRED`
-- `BUYER_STATE_CAPTURE = REQUIRED`
-- `BILLING_ADDRESS_CAPTURE = REQUIRED`
-- `STATE_TAXABILITY_RULE = RESOLVED`
-- `NEXUS_RULE = RESOLVED`
-- `TAX_DECISION_BEFORE_CHARGE = REQUIRED`
+- product/service tax classification rationale;
+- nexus and economic-threshold monitoring;
+- no registration / no collection absent a real current obligation;
+- registration/collection once a real legal obligation exists;
+- Stripe Tax remaining off/not independently authoritative until the relevant launch decision authorizes its use.
 
-Current: **NOT YET RESOLVED / BLOCKING**.
+For DoesAISeeMe, PASS requires:
 
-Current tax posture must not be overstated:
+- commercial substance mapped to the existing ISTRIADE tax-classification framework;
+- no product-specific fact contradicting the existing nexus posture;
+- checkout continues capturing the location data required by the canonical monitoring/decision process;
+- any future threshold, nexus or registration trigger is handled through the existing monitoring framework rather than a new ad hoc product rule.
 
-- Wyoming/current-service classification: **LIKELY NON-TAXABLE FOR CURRENT CLASSIFICATION**, not final legal opinion;
-- US multi-state taxability: **NOT YET RESOLVED**;
-- `LIVE_PAYMENT = HOLD` until this gate and the other readiness gates pass.
+Current: **PARTIAL — canonical ISTRIADE fiscal policy exists; DoesAISeeMe product-level conformity mapping remains to be recorded.**
+
+Important status distinction:
+
+- `ISTRIADE_FISCAL_POLICY = CANONICAL / ESTABLISHED`
+- `STRIPE_TAX = OFF / NOT YET AUTHORIZED FOR INDEPENDENT ACTIVATION`
+- `DOESAIAISEEME_TAX_CONFORMITY_MAPPING = PENDING`
+- `LIVE_PAYMENT = HOLD` for overall readiness, not because ISTRIADE lacks a fiscal policy.
 
 ### GATE R5 — Checkout
 PASS when checkout points from the canonical product destination, captures required purchase data, displays correct scope/delivery disclosure and has no test/internal copy.
-Current: FUNCTIONALLY VALIDATED but activation must remain HOLD.
+Current: FUNCTIONALLY VALIDATED; migrated Preview checkout is fail-closed and activation must remain HOLD.
 
 ### GATE R6 — Intake
 PASS when post-purchase intake is reachable from the external customer journey and submission retrieval works.
@@ -230,7 +233,7 @@ DoesAISeeMe may be enabled in the public `istriadegroup.com` Product Registry wh
 - support email is operational;
 - intake path is operational;
 - checkout state matches governance (HOLD until authorization, ACTIVE only after explicit Founder gate);
-- state-level US tax determination gate R4A is resolved before charging external customers;
+- DoesAISeeMe conforms to the canonical ISTRIADE fiscal-policy framework;
 - controlled E2E remains PASS;
 - Product Registry entry is explicitly enabled (`cardEnabled=true`) only at the authorized publication step.
 
@@ -240,12 +243,17 @@ DoesAISeeMe may be enabled in the public `istriadegroup.com` Product Registry wh
 - PRIMARY ISTRIADE LAUNCH PRODUCT: NO — remains ISTRIADE SEO Agent
 - CONTROLLED MIGRATION OPTION B: APPROVED
 - PRODUCT BUILD: EXISTS / controlled fulfillment proven
-- OLD VERCEL DESTINATION: NOT VERIFIED
-- OLD PRODUCT REPOSITORY ACCESS: NOT VERIFIED
+- SOURCE REPOSITORY: VERIFIED
+- MIGRATION PR: #1 OPEN / DRAFT / UNMERGED
+- HISTORICAL VERCEL PRODUCTION: `doesaiseeme-mvp.vercel.app` / `main`
+- CONTROLLED-MIGRATION PREVIEW: EXISTS
+- PREVIEW VISUAL QA: PASS — Founder verified
+- PREVIEW HTTP/HEADER RUNTIME QA: NOT EXTERNALLY VERIFIED THROUGH CURRENT CONNECTOR
 - CANONICAL TARGET: `https://doesaiseeme.istriadegroup.com`
 - STRIPE LIVE PRODUCT / PRICE / LINK: VERIFIED
 - LIVE PAYMENT LINK: INACTIVE
-- US MULTI-STATE TAXABILITY: NOT YET RESOLVED
+- ISTRIADE FISCAL POLICY: CANONICAL / ESTABLISHED
+- DOESAISEEME FISCAL CONFORMITY MAPPING: PENDING
 - CUSTOMER INTAKE: PASS
 - CONTROLLED E2E: PASS
 - EXTERNAL CUSTOMER VALIDATION: 0 / 3
