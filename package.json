@@ -9,8 +9,9 @@
     "content:guard": "node scripts/content-guard.mjs",
     "brand:check": "node scripts/brand-integrity.mjs",
     "accessibility:guard": "node scripts/accessibility-guard.mjs",
-    "deploy:check": "node scripts/verify-static-export.mjs",
-    "check": "npm run content:guard && npm run brand:check && npm run accessibility:guard && npm run typecheck && npm run build && npm run deploy:check"
+    "metadata:guard": "node scripts/metadata-distribution-guard.mjs",
+    "deploy:check": "node scripts/verify-static-export.mjs && node scripts/metadata-export-guard.mjs",
+    "check": "npm run content:guard && npm run brand:check && npm run accessibility:guard && npm run metadata:guard && npm run typecheck && npm run build && npm run deploy:check"
   },
   "dependencies": {
     "next": "16.3.4",

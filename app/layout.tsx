@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./accessibility.css";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -6,19 +6,44 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { StructuredData } from "@/components/StructuredData";
 import { site } from "@/lib/site";
 
+const defaultTitle = "ISTRIADE GROUP — AI Software, Intelligent Systems & Business Technology";
+const defaultDescription =
+  "ISTRIADE GROUP LLC develops AI-powered software, intelligent systems and specialized digital services across commerce, search visibility, automation, content and business operations.";
+const socialImage = `${site.url}/opengraph-image`;
+
+export const viewport: Viewport = {
+  themeColor: "#071015",
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "ISTRIADE GROUP — AI Software, Intelligent Systems & Business Technology",
+    default: defaultTitle,
     template: "%s",
   },
-  description:
-    "ISTRIADE GROUP LLC develops AI-powered software, intelligent systems and specialized digital services across commerce, search visibility, automation, content and business operations.",
+  description: defaultDescription,
   applicationName: site.legalName,
   authors: [{ name: site.legalName }],
   creator: site.legalName,
   publisher: site.legalName,
   robots: { index: true, follow: true },
+  manifest: "/manifest.webmanifest",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: site.url,
+    siteName: site.legalName,
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [{ url: socialImage, width: 1200, height: 630, alt: site.legalName }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [socialImage],
+  },
   icons: {
     icon: "/brand/istriade/07-istriade-favicon.svg",
     shortcut: "/brand/istriade/07-istriade-favicon.svg",
