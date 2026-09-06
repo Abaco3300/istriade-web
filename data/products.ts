@@ -3,6 +3,7 @@ export type ProductRecord = {
   name: string;
   category: string;
   summary: string;
+  ownershipLabel: string | null;
   accent: "cyan" | "blue" | "violet" | "teal";
   featured: boolean;
   cardEnabled: boolean;
@@ -20,6 +21,7 @@ export const products: ProductRecord[] = [
     category: "Commerce Intelligence",
     summary:
       "Decision intelligence for commerce businesses that need clearer visibility into performance, opportunities and next actions.",
+    ownershipLabel: null,
     accent: "cyan",
     featured: true,
     cardEnabled: true,
@@ -35,6 +37,7 @@ export const products: ProductRecord[] = [
     category: "Search Visibility & SEO Operations",
     summary:
       "Evidence-driven SEO analysis, opportunity discovery and controlled implementation for businesses seeking stronger visibility across modern search environments.",
+    ownershipLabel: null,
     accent: "blue",
     featured: true,
     cardEnabled: true,
@@ -45,11 +48,28 @@ export const products: ProductRecord[] = [
     order: 2,
   },
   {
+    id: "doesaiseeme",
+    name: "DoesAISeeMe",
+    category: "AI Search Visibility Intelligence",
+    summary:
+      "Discover how your company appears across AI-powered search and answer environments. DoesAISeeMe measures whether AI systems recognize your brand, surface it for relevant queries, recommend it, and understand the sources behind its visibility.",
+    ownershipLabel: "An ISTRIADE product",
+    accent: "blue",
+    featured: false,
+    cardEnabled: false,
+    externalLinkEnabled: false,
+    websiteUrl: null,
+    intendedDomain: "https://doesaiseeme.istriadegroup.com",
+    publicStatusLabel: null,
+    order: 3,
+  },
+  {
     id: "ai-video-studio",
     name: "ISTRIADE AI Video Studio",
     category: "AI-Assisted Video & Content Production",
     summary:
       "Structured audiovisual production systems combining AI, automation and human creative control.",
+    ownershipLabel: null,
     accent: "violet",
     featured: true,
     cardEnabled: true,
@@ -57,7 +77,7 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: null,
     publicStatusLabel: null,
-    order: 3,
+    order: 4,
   },
   {
     id: "irmya",
@@ -65,6 +85,7 @@ export const products: ProductRecord[] = [
     category: "AI-Operated Business Systems",
     summary:
       "A structured operating approach for transforming objectives into governed, coordinated and verifiable execution.",
+    ownershipLabel: null,
     accent: "teal",
     featured: true,
     cardEnabled: true,
@@ -72,10 +93,14 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: "https://irmya.com",
     publicStatusLabel: null,
-    order: 4,
+    order: 5,
   },
 ];
 
-export const featuredProducts = products
-  .filter((product) => product.featured && product.cardEnabled)
+export const publicProducts = products
+  .filter((product) => product.cardEnabled)
+  .sort((a, b) => a.order - b.order);
+
+export const featuredProducts = publicProducts
+  .filter((product) => product.featured)
   .sort((a, b) => a.order - b.order);
