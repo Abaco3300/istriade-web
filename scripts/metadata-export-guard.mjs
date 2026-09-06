@@ -14,6 +14,8 @@ if (!fs.existsSync(manifestPath)) {
 
 const home = fs.readFileSync(homePath, "utf8");
 for (const required of [
+  'rel="canonical"',
+  'href="https://istriadegroup.com/"',
   'rel="manifest"',
   'href="/manifest.webmanifest"',
   'property="og:type"',
@@ -34,6 +36,30 @@ for (const required of [
 ]) {
   if (!home.includes(required)) {
     throw new Error(`Exported home metadata missing required detail: ${required}`);
+  }
+}
+
+const articleSlugs = [
+  "ai-search-visibility-business-framework",
+  "human-governed-ai-operations",
+  "from-signal-to-execution",
+];
+for (const slug of articleSlugs) {
+  const articlePath = path.join(out, "insights", slug, "index.html");
+  if (!fs.existsSync(articlePath)) {
+    throw new Error(`Static export missing Insight article for metadata verification: ${slug}`);
+  }
+  const article = fs.readFileSync(articlePath, "utf8");
+  const canonical = `https://istriadegroup.com/insights/${slug}/`;
+  for (const required of [
+    'rel="canonical"',
+    `href="${canonical}"`,
+    '"@type":"Article"',
+    '"image":"https://istriadegroup.com/opengraph-image"',
+  ]) {
+    if (!article.includes(required)) {
+      throw new Error(`Exported Insight article ${slug} missing required metadata detail: ${required}`);
+    }
   }
 }
 
