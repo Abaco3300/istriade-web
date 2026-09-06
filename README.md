@@ -2,20 +2,23 @@
 
 Corporate hub for **ISTRIADE GROUP LLC**.
 
-## Current build state
+## Current state
 
-- Architecture: approved
-- Copy: frozen for build
+- Architecture: approved and implemented
 - Canonical brand assets: recovered and integrity-pinned
-- Product registry: v1 frozen with four products; external links disabled until individually authorized
-- Corporate legal surface: `/legal/`, `/privacy/`, `/terms/`
-- Source implementation: built
+- Product Registry: active; public links are enabled only when individually authorized
+- Corporate legal surface: `/legal/`, `/privacy/`, `/terms/`, `/commercial-policies/`
+- Corporate authority surface: `/insights/`, `/trust/`, `llms.txt`, structured data and AI/search discovery controls
+- Accessibility hardening: merged and CI-verified
+- Social/distribution metadata and web manifest: merged and CI-verified
 - Clean-environment CI: pass
 - HTTP smoke tests: pass
-- Initial private visual QA: pass
-- `BLK-017`: closed / verified
-- Current production runtime: Cloudflare Workers & Pages project `tiny-pond-1463`
-- Production deployment/cutover: **not authorized**
+- Private desktop/mobile visual QA: pass
+- Current production runtime: Cloudflare Worker `tiny-pond-1463`
+- Production website: **live** at `https://istriadegroup.com`
+- Last verified production deployment baseline: GitHub Actions run `34008750674`
+- Last verified production source commit: `511de7bd1174a3d3494ba46f22951d06eaf08b7b`
+- Current `main` contains additional validated corporate improvements that are intentionally not yet deployed
 
 ## Stack
 
@@ -26,9 +29,9 @@ Corporate hub for **ISTRIADE GROUP LLC**.
 - No database
 - No authentication
 - No CMS
-- No Stripe
-- No contact form backend
-- No non-essential analytics in v1
+- No Stripe in the corporate site
+- No contact-form backend
+- No non-essential analytics
 
 ## Verification
 
@@ -37,10 +40,16 @@ npm install
 npm run check
 ```
 
-`npm run check` runs content guards, canonical brand hash verification, TypeScript checking, the static production build, and deployment-artifact verification.
+`npm run check` verifies content boundaries, canonical brand integrity, accessibility guarantees, distribution metadata, the production-deployment contract, TypeScript, the static production build and exported deployment artifacts.
 
 GitHub Actions additionally serves the exported `out/` directory for route checks, captures private desktop/mobile QA screenshots, and packages a verified Cloudflare deployment ZIP with SHA-256 and source-commit evidence.
 
+## Deployment governance
+
+Production deployment is a separate Founder gate from technical merge.
+
+The Cloudflare production workflow remains **manual-only** (`workflow_dispatch`) and targets the existing Worker `tiny-pond-1463`. It rebuilds and verifies `main`, captures pre-deploy state, deploys the verified static assets, runs live smoke checks across the corporate, product-discovery, Insights, Trust, AI-discovery and metadata surfaces, and automatically invokes rollback if live verification fails.
+
 ## Current gate
 
-The next material gate is **production upload/cutover authorization**. Preparing or merging this deployment package does not itself publish the website to `istriadegroup.com`.
+The current release candidate is being reconciled under `WEB-RELEASE-001` before the next grouped production deployment. Merging release-readiness changes does not itself publish anything to `istriadegroup.com`.
