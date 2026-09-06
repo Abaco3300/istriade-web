@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { ProductCard } from "@/components/ProductCard";
+import { StructuredData } from "@/components/StructuredData";
 import { publicProducts } from "@/data/products";
 import { pageMetadata } from "@/lib/metadata";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Products & Systems — ISTRIADE GROUP",
@@ -11,7 +13,45 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ProductsPage() {
+  const productsUrl = `${site.url}/products/`;
+  const itemListId = `${productsUrl}#itemlist`;
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${productsUrl}#webpage`,
+      url: productsUrl,
+      name: "Products & Systems — ISTRIADE GROUP",
+      description:
+        "Public corporate registry of focused products and systems developed by ISTRIADE GROUP LLC.",
+      inLanguage: "en-US",
+      isPartOf: { "@id": `${site.url}/#website` },
+      about: { "@id": `${site.url}/#organization` },
+      mainEntity: { "@id": itemListId },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": itemListId,
+      name: "ISTRIADE public products and systems",
+      itemListOrder: "https://schema.org/ItemListOrderAscending",
+      numberOfItems: publicProducts.length,
+      itemListElement: publicProducts.map((product, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Thing",
+          name: product.name,
+          description: product.summary,
+          ...(product.externalLinkEnabled && product.websiteUrl ? { url: product.websiteUrl } : {}),
+        },
+      })),
+    },
+  ];
+
   return <>
+    <StructuredData data={structuredData} />
     <PageHero eyebrow="Products" title="Focused products for distinct business problems." lead="ISTRIADE develops products and specialized systems around clearly defined operating problems. Each maintains its own focus and product-specific source of truth." />
     <section className="section"><div className="container product-grid">{publicProducts.map((product) => <ProductCard key={product.id} product={product} />)}</div></section>
     <section className="section section-tinted"><div className="container editorial-grid"><div><p className="eyebrow">Product independence</p><h2>Corporate discovery. Product-level truth.</h2></div><div className="prose"><p>The ISTRIADE corporate website presents each product at a high level. Detailed capabilities, commercial terms, access conditions and other product-specific information belong to the relevant product environment.</p><p>External product links become active only after the corresponding public destination is verified and authorized.</p></div></div></section>

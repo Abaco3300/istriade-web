@@ -22,6 +22,7 @@ const requiredFiles = [
   "404.html",
   "robots.txt",
   "sitemap.xml",
+  "llms.txt",
   "_headers",
   "_redirects",
   "brand/istriade/01-istriade-symbol-color.svg",
@@ -36,7 +37,8 @@ for (const relative of requiredFiles) {
   }
 }
 
-const home = visibleHtml(fs.readFileSync(path.join(out, "index.html"), "utf8"));
+const rawHome = fs.readFileSync(path.join(out, "index.html"), "utf8");
+const home = visibleHtml(rawHome);
 for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
   if (home.includes(`href=\"${heldDomain}`) || home.includes(`href='${heldDomain}`)) {
     throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
@@ -45,8 +47,17 @@ for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
 if (home.includes(">DoesAISeeMe</h3>")) {
   throw new Error("DoesAISeeMe must remain absent from the corporate homepage while featured=false");
 }
+if (!rawHome.includes('rel="describedby"') || !rawHome.includes('href="/llms.txt"')) {
+  throw new Error("Home document does not expose llms.txt through rel=describedby");
+}
+for (const entityId of ["https://istriadegroup.com/#organization", "https://istriadegroup.com/#website"]) {
+  if (!rawHome.includes(entityId)) {
+    throw new Error(`Corporate structured data missing stable entity ID: ${entityId}`);
+  }
+}
 
-const productsPage = visibleHtml(fs.readFileSync(path.join(out, "products/index.html"), "utf8"));
+const rawProductsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
+const productsPage = visibleHtml(rawProductsPage);
 if (!productsPage.includes(">DoesAISeeMe</h3>")) {
   throw new Error("Prepared DoesAISeeMe Product Registry card is missing from Products page");
 }
@@ -70,6 +81,14 @@ for (const forbiddenTransactionalCopy of ["Buy DoesAISeeMe", "Purchase DoesAISee
 if (productsPage.includes("$19") || productsPage.includes("USD 19")) {
   throw new Error("Product-level DoesAISeeMe pricing leaked into visible corporate Products page");
 }
+for (const schemaType of ['"@type":"CollectionPage"', '"@type":"ItemList"']) {
+  if (!rawProductsPage.includes(schemaType)) {
+    throw new Error(`Products page structured data missing ${schemaType}`);
+  }
+}
+if (!rawProductsPage.includes("https://istriadegroup.com/products/#itemlist")) {
+  throw new Error("Products page structured data missing stable ItemList ID");
+}
 
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
 if (!notFound.includes("Page not found")) {
@@ -79,6 +98,27 @@ if (!notFound.includes("Page not found")) {
 const robots = fs.readFileSync(path.join(out, "robots.txt"), "utf8");
 if (!robots.includes("Sitemap: https://istriadegroup.com/sitemap.xml")) {
   throw new Error("robots.txt does not reference the canonical sitemap");
+}
+if (!robots.includes("OAI-SearchBot")) {
+  throw new Error("robots.txt does not explicitly identify OAI-SearchBot");
+}
+
+const llms = fs.readFileSync(path.join(out, "llms.txt"), "utf8");
+for (const requiredText of [
+  "# ISTRIADE GROUP LLC",
+  "https://istriadegroup.com/about/",
+  "https://istriadegroup.com/products/",
+  "https://doesaiseeme.istriadegroup.com/",
+  "contact@istriadegroup.com",
+]) {
+  if (!llms.includes(requiredText)) {
+    throw new Error(`llms.txt missing canonical corporate discovery detail: ${requiredText}`);
+  }
+}
+for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
+  if (llms.includes(heldDomain)) {
+    throw new Error(`llms.txt leaked an unreleased product destination: ${heldDomain}`);
+  }
 }
 
 const sitemap = fs.readFileSync(path.join(out, "sitemap.xml"), "utf8");

@@ -36,9 +36,13 @@ export default function HomePage() {
   const websiteData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${site.url}/#website`,
     name: site.legalName,
+    alternateName: site.displayName,
     url: site.url,
-    publisher: { "@type": "Organization", name: site.legalName },
+    description: site.organizationDescription,
+    inLanguage: "en-US",
+    publisher: { "@id": `${site.url}/#organization` },
   };
 
   return (

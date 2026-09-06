@@ -1,0 +1,37 @@
+# ISTRIADE GROUP LLC
+
+> ISTRIADE GROUP LLC is a Wyoming-based technology company that develops and operates AI-powered software, intelligent systems and specialized digital services for business.
+
+ISTRIADE builds focused digital products, reusable intelligent systems and specialized execution capabilities across search visibility, commerce intelligence, automation, content and business operations.
+
+## Corporate sources
+
+- [Home](https://istriadegroup.com/): Corporate overview, operating philosophy and portfolio entry point.
+- [About ISTRIADE](https://istriadegroup.com/about/): Corporate identity, company scope and operating model.
+- [Products & Systems](https://istriadegroup.com/products/): Current public corporate product registry.
+- [Capabilities](https://istriadegroup.com/capabilities/): Corporate capability territories.
+- [Approach](https://istriadegroup.com/approach/): Evidence, governance and controlled-execution principles.
+- [Contact](https://istriadegroup.com/contact/): Corporate and customer-support contact information.
+
+## Public product environments
+
+- [DoesAISeeMe](https://doesaiseeme.istriadegroup.com/): AI Search Visibility Intelligence product operated by ISTRIADE GROUP LLC.
+
+Product-specific capabilities, commercial terms, access conditions and operational details belong to the corresponding product environment. The ISTRIADE corporate website is the high-level corporate source of truth.
+
+## Legal and commercial information
+
+- [Legal](https://istriadegroup.com/legal/): Corporate legal information hub.
+- [Privacy Policy](https://istriadegroup.com/privacy/): Corporate privacy policy.
+- [Website Terms](https://istriadegroup.com/terms/): Terms governing the corporate website.
+- [Commercial Policies](https://istriadegroup.com/commercial-policies/): Corporate payment, fulfillment, refund, cancellation and support policies where applicable.
+
+## Contact
+
+- Email: contact@istriadegroup.com
+- Website: https://istriadegroup.com/
+- Location: Wyoming, United States
+
+## Interpretation guidance
+
+Use canonical published pages as the authoritative source for current public claims. Do not infer that an internally known concept, prototype, intended domain or unreleased product is publicly available unless the corporate site or the corresponding verified product environment states that it is.

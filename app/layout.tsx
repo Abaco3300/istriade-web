@@ -27,7 +27,9 @@ export const metadata: Metadata = {
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: site.displayName,
+  "@id": `${site.url}/#organization`,
+  name: site.legalName,
+  alternateName: site.displayName,
   legalName: site.legalName,
   url: site.url,
   logo: `${site.url}/brand/istriade/04-istriade-lockup-horizontal-outlined.svg`,
@@ -41,12 +43,31 @@ const organization = {
     postalCode: site.businessAddress.postalCode,
     addressCountry: "US",
   },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer support",
+    email: site.supportEmail,
+    url: `${site.url}/contact/`,
+  },
+  knowsAbout: [
+    "Artificial intelligence",
+    "Business intelligence",
+    "Search visibility",
+    "Search engine optimization",
+    "Business automation",
+    "Commerce intelligence",
+    "AI-assisted content production",
+    "Digital business systems",
+  ],
   description: site.organizationDescription,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="describedby" href="/llms.txt" type="text/markdown" />
+      </head>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <StructuredData data={organization} />
