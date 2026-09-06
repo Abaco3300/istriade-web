@@ -35,19 +35,33 @@ for (const relative of requiredFiles) {
 const home = fs.readFileSync(path.join(out, "index.html"), "utf8");
 for (const heldDomain of ["https://sygvana.com", "https://irmya.com", "https://doesaiseeme.istriadegroup.com"]) {
   if (home.includes(`href=\"${heldDomain}`) || home.includes(`href='${heldDomain}`)) {
-    throw new Error(`Held product domain rendered as active link: ${heldDomain}`);
+    throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
   }
 }
 
 const productsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
-if (productsPage.includes(">DoesAISeeMe</h3>")) {
-  throw new Error("Disabled DoesAISeeMe Product Registry card rendered publicly");
+if (!productsPage.includes(">DoesAISeeMe</h3>")) {
+  throw new Error("Prepared DoesAISeeMe Product Registry card is missing from Products page");
+}
+if (!productsPage.includes("An ISTRIADE product")) {
+  throw new Error("DoesAISeeMe ownership label is missing from Products page");
+}
+if (!productsPage.includes('href="https://doesaiseeme.istriadegroup.com')) {
+  throw new Error("DoesAISeeMe canonical discovery link is missing from Products page");
+}
+if (!productsPage.includes("Explore DoesAISeeMe")) {
+  throw new Error("DoesAISeeMe discovery CTA is missing from Products page");
 }
 if (productsPage.includes(">First Revenue Candidate<")) {
   throw new Error("Internal portfolio role leaked into visible Products page copy");
 }
-if (productsPage.includes("href=\"https://doesaiseeme.istriadegroup.com") || productsPage.includes("href='https://doesaiseeme.istriadegroup.com")) {
-  throw new Error("Held DoesAISeeMe destination rendered as active public link");
+for (const forbiddenTransactionalCopy of ["Buy DoesAISeeMe", "Purchase DoesAISeeMe", "Get your report", "Start report", "Checkout"]) {
+  if (productsPage.includes(forbiddenTransactionalCopy)) {
+    throw new Error(`Transactional DoesAISeeMe copy leaked into corporate discovery page: ${forbiddenTransactionalCopy}`);
+  }
+}
+if (productsPage.includes("$19") || productsPage.includes("USD 19")) {
+  throw new Error("Product-level DoesAISeeMe pricing leaked into corporate Products page");
 }
 
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
