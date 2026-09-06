@@ -20,8 +20,10 @@ Corporate contact: **contact@istriadegroup.com**
 
 - Production website: **live** at `https://istriadegroup.com/`
 - Current production runtime: Cloudflare Worker `tiny-pond-1463`
-- Last verified production deployment: GitHub Actions run `34066286885`
-- Last verified production source commit: `4446c7d7f7014e987f7d605c8ca194338890934c`
+- Current verified production deployment: GitHub Actions run `34066286885`
+- Current verified production source commit: `4446c7d7f7014e987f7d605c8ca194338890934c`
+- Historical verified production deployment baseline: GitHub Actions run `34008750674`
+- Historical verified production source baseline: `511de7bd1174a3d3494ba46f22951d06eaf08b7b`
 - Canonical brand assets: integrity-pinned
 - Product Registry: active; public links are enabled only when individually authorized
 - Corporate legal surface: `/legal/`, `/privacy/`, `/terms/`, `/commercial-policies/`
