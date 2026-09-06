@@ -5,6 +5,7 @@ import { StructuredData } from "@/components/StructuredData";
 import { insights } from "@/data/insights";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
+import styles from "./insights.module.css";
 
 export const metadata: Metadata = pageMetadata({
   title: "Insights — ISTRIADE GROUP",
@@ -52,10 +53,10 @@ export default function InsightsPage() {
       />
       <section className="section">
         <div className="container">
-          <div className="insights-grid">
+          <div className={styles.grid}>
             {insights.map((insight) => (
-              <article className="insight-card" key={insight.slug}>
-                <p className="insight-meta">{insight.category} · {insight.readingTime}</p>
+              <article className={styles.card} key={insight.slug}>
+                <p className={styles.meta}>{insight.category} · {insight.readingTime}</p>
                 <h2>{insight.title}</h2>
                 <p>{insight.summary}</p>
                 <Link className="text-link" href={`/insights/${insight.slug}/`}>Read insight →</Link>
