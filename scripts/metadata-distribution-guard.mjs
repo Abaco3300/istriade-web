@@ -3,12 +3,14 @@ import fs from "node:fs";
 const layout = fs.readFileSync("app/layout.tsx", "utf8");
 const manifest = fs.readFileSync("app/manifest.ts", "utf8");
 const pageMetadata = fs.readFileSync("lib/metadata.ts", "utf8");
+const insightArticle = fs.readFileSync("app/insights/[slug]/page.tsx", "utf8");
 const openGraphImage = fs.readFileSync("app/opengraph-image.tsx", "utf8");
 
 for (const required of [
   'export const viewport: Viewport',
   'themeColor: "#071015"',
   'colorScheme: "dark"',
+  'alternates: { canonical: `${site.url}/` }',
   'manifest: "/manifest.webmanifest"',
   'const socialImage = `${site.url}/opengraph-image`',
   'openGraph:',
@@ -44,12 +46,23 @@ for (const required of [
 }
 
 for (const required of [
+  'alternates: { canonical }',
   'images: [{ url: `${site.url}/opengraph-image`, width: 1200, height: 630, alt: site.legalName }]',
   'card: "summary_large_image"',
   'images: [`${site.url}/opengraph-image`]',
 ]) {
   if (!pageMetadata.includes(required)) {
-    throw new Error(`Existing page-level social metadata contract changed unexpectedly: ${required}`);
+    throw new Error(`Existing page-level metadata contract changed unexpectedly: ${required}`);
+  }
+}
+
+for (const required of [
+  '"@type": "Article"',
+  'image: `${site.url}/opengraph-image`',
+  'mainEntityOfPage: articleUrl',
+]) {
+  if (!insightArticle.includes(required)) {
+    throw new Error(`Insight Article structured-data contract missing required detail: ${required}`);
   }
 }
 

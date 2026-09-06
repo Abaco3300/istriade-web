@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description: defaultDescription,
+  alternates: { canonical: `${site.url}/` },
   applicationName: site.legalName,
   authors: [{ name: site.legalName }],
   creator: site.legalName,
