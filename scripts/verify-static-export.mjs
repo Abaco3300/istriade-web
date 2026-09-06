@@ -8,12 +8,20 @@ const visibleHtml = (html) => html
   .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
   .replace(/<!--[\s\S]*?-->/g, "");
 
+const insightSlugs = [
+  "ai-search-visibility-business-framework",
+  "human-governed-ai-operations",
+  "from-signal-to-execution",
+];
+
 const requiredFiles = [
   "index.html",
   "about/index.html",
   "products/index.html",
   "capabilities/index.html",
   "approach/index.html",
+  "insights/index.html",
+  ...insightSlugs.map((slug) => `insights/${slug}/index.html`),
   "contact/index.html",
   "legal/index.html",
   "privacy/index.html",
@@ -49,6 +57,9 @@ if (home.includes(">DoesAISeeMe</h3>")) {
 }
 if (!rawHome.includes('rel="describedby"') || !rawHome.includes('href="/llms.txt"')) {
   throw new Error("Home document does not expose llms.txt through rel=describedby");
+}
+if (!home.includes('href="/insights/"')) {
+  throw new Error("Corporate navigation does not expose the Insights hub");
 }
 for (const entityId of ["https://istriadegroup.com/#organization", "https://istriadegroup.com/#website"]) {
   if (!rawHome.includes(entityId)) {
@@ -90,6 +101,47 @@ if (!rawProductsPage.includes("https://istriadegroup.com/products/#itemlist")) {
   throw new Error("Products page structured data missing stable ItemList ID");
 }
 
+const rawInsights = fs.readFileSync(path.join(out, "insights/index.html"), "utf8");
+const visibleInsights = visibleHtml(rawInsights);
+for (const title of [
+  "AI Search Visibility: A Practical Framework for Businesses",
+  "Human-Governed AI Operations: Where Automation Needs Control",
+  "From Signal to Execution: Designing AI Systems Around Business Decisions",
+]) {
+  if (!visibleInsights.includes(title)) {
+    throw new Error(`Insights hub missing published article: ${title}`);
+  }
+}
+for (const schemaType of ['"@type":"CollectionPage"', '"@type":"ItemList"']) {
+  if (!rawInsights.includes(schemaType)) {
+    throw new Error(`Insights hub structured data missing ${schemaType}`);
+  }
+}
+for (const forbidden of ["$19", "USD 19", "checkoutActive", "Payment Link", "First Revenue Candidate"]) {
+  if (visibleInsights.includes(forbidden)) {
+    throw new Error(`Internal or transactional detail leaked into Insights hub: ${forbidden}`);
+  }
+}
+
+for (const slug of insightSlugs) {
+  const rawArticle = fs.readFileSync(path.join(out, `insights/${slug}/index.html`), "utf8");
+  const article = visibleHtml(rawArticle);
+  if (!rawArticle.includes('"@type":"Article"')) {
+    throw new Error(`Insight article missing Article structured data: ${slug}`);
+  }
+  if (!rawArticle.includes(`https://istriadegroup.com/insights/${slug}/`)) {
+    throw new Error(`Insight article missing canonical URL: ${slug}`);
+  }
+  if (!article.includes("About this article.")) {
+    throw new Error(`Insight article missing editorial boundary statement: ${slug}`);
+  }
+  for (const forbidden of ["$19", "USD 19", "checkoutActive", "Payment Link", "First Revenue Candidate"]) {
+    if (article.includes(forbidden)) {
+      throw new Error(`Internal or transactional detail leaked into Insight article ${slug}: ${forbidden}`);
+    }
+  }
+}
+
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
 if (!notFound.includes("Page not found")) {
   throw new Error("Custom 404 content missing from static export");
@@ -108,6 +160,8 @@ for (const requiredText of [
   "# ISTRIADE GROUP LLC",
   "https://istriadegroup.com/about/",
   "https://istriadegroup.com/products/",
+  "https://istriadegroup.com/insights/",
+  ...insightSlugs.map((slug) => `https://istriadegroup.com/insights/${slug}/`),
   "https://doesaiseeme.istriadegroup.com/",
   "contact@istriadegroup.com",
 ]) {
@@ -126,6 +180,8 @@ for (const canonical of [
   "https://istriadegroup.com/",
   "https://istriadegroup.com/about/",
   "https://istriadegroup.com/products/",
+  "https://istriadegroup.com/insights/",
+  ...insightSlugs.map((slug) => `https://istriadegroup.com/insights/${slug}/`),
   "https://istriadegroup.com/privacy/",
   "https://istriadegroup.com/terms/",
   "https://istriadegroup.com/commercial-policies/",

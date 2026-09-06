@@ -1,0 +1,134 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  min-height: 390px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+}
+
+.card h2 {
+  margin: .7rem 0 1rem;
+  font-family: ui-serif, Georgia, serif;
+  font-size: clamp(1.7rem, 2.4vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.03em;
+}
+
+.card > p:not(.meta) {
+  color: #aabac1;
+}
+
+.card :global(.text-link) {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.meta,
+.byline {
+  color: #7f939c;
+  font-size: .76rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.heroShell h1 {
+  max-width: 16ch;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(230px, .55fr) minmax(0, 1.45fr);
+  gap: clamp(3rem, 7vw, 7rem);
+  align-items: start;
+}
+
+.aside {
+  position: sticky;
+  top: 130px;
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+}
+
+.aside > p:not(:global(.eyebrow)) {
+  color: #aabac1;
+  margin-bottom: 1.5rem;
+}
+
+.body {
+  max-width: 760px;
+}
+
+.section {
+  padding: 0 0 3rem;
+  margin: 0 0 3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.section h2 {
+  margin: 0 0 1.4rem;
+  font-family: ui-serif, Georgia, serif;
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.section p,
+.section li,
+.boundary p {
+  color: #b7c5cb;
+  font-size: 1.05rem;
+}
+
+.section p {
+  margin: 0 0 1.35rem;
+}
+
+.section ul {
+  margin: 1.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.section li {
+  margin-bottom: .85rem;
+  padding-left: .35rem;
+}
+
+.boundary {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: rgba(255,255,255,.015);
+}
+
+.boundary p {
+  margin: 0;
+  font-size: .96rem;
+}
+
+@media (max-width: 920px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    position: static;
+  }
+}
