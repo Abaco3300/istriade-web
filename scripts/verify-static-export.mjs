@@ -22,6 +22,7 @@ const requiredFiles = [
   "approach/index.html",
   "insights/index.html",
   ...insightSlugs.map((slug) => `insights/${slug}/index.html`),
+  "trust/index.html",
   "contact/index.html",
   "legal/index.html",
   "privacy/index.html",
@@ -142,6 +143,40 @@ for (const slug of insightSlugs) {
   }
 }
 
+const rawTrust = fs.readFileSync(path.join(out, "trust/index.html"), "utf8");
+const trust = visibleHtml(rawTrust);
+for (const requiredText of [
+  "Trust &amp; Transparency",
+  "ISTRIADE GROUP LLC",
+  "75 E 3rd St",
+  "Sheridan",
+  "WY 82801",
+  "contact@istriadegroup.com",
+  "Official sources",
+  "Published policies",
+  "Privacy Policy",
+  "Website Terms",
+  "Commercial Policies",
+  "AI-operated where useful. Human-governed where it matters.",
+]) {
+  if (!trust.includes(requiredText)) {
+    throw new Error(`Trust page missing required corporate truth: ${requiredText}`);
+  }
+}
+if (!rawTrust.includes('"@type":"WebPage"') || !rawTrust.includes("https://istriadegroup.com/trust/#webpage")) {
+  throw new Error("Trust page structured data or stable WebPage ID is missing");
+}
+for (const unearnedClaim of ["SOC 2", "ISO 27001", "HIPAA compliant", "GDPR certified"]) {
+  if (trust.includes(unearnedClaim)) {
+    throw new Error(`Trust page contains an unsupported certification/compliance claim: ${unearnedClaim}`);
+  }
+}
+for (const forbidden of ["$19", "USD 19", "checkoutActive", "Payment Link", "First Revenue Candidate"]) {
+  if (trust.includes(forbidden)) {
+    throw new Error(`Internal or transactional detail leaked into Trust page: ${forbidden}`);
+  }
+}
+
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
 if (!notFound.includes("Page not found")) {
   throw new Error("Custom 404 content missing from static export");
@@ -162,6 +197,7 @@ for (const requiredText of [
   "https://istriadegroup.com/products/",
   "https://istriadegroup.com/insights/",
   ...insightSlugs.map((slug) => `https://istriadegroup.com/insights/${slug}/`),
+  "https://istriadegroup.com/trust/",
   "https://doesaiseeme.istriadegroup.com/",
   "contact@istriadegroup.com",
 ]) {
@@ -182,6 +218,7 @@ for (const canonical of [
   "https://istriadegroup.com/products/",
   "https://istriadegroup.com/insights/",
   ...insightSlugs.map((slug) => `https://istriadegroup.com/insights/${slug}/`),
+  "https://istriadegroup.com/trust/",
   "https://istriadegroup.com/privacy/",
   "https://istriadegroup.com/terms/",
   "https://istriadegroup.com/commercial-policies/",
@@ -208,6 +245,14 @@ const contact = fs.readFileSync(path.join(out, "contact/index.html"), "utf8");
 for (const requiredText of ["Customer support", "contact@istriadegroup.com", "Sheridan", "WY 82801"]) {
   if (!contact.includes(requiredText)) {
     throw new Error(`Contact page missing Stripe-readiness detail: ${requiredText}`);
+  }
+}
+
+const footerPages = ["index.html", "about/index.html", "products/index.html", "trust/index.html"];
+for (const relative of footerPages) {
+  const visible = visibleHtml(fs.readFileSync(path.join(out, relative), "utf8"));
+  if (!visible.includes('href="/trust/"') || !visible.includes("Trust &amp; Transparency")) {
+    throw new Error(`Footer does not expose Trust & Transparency on ${relative}`);
   }
 }
 
