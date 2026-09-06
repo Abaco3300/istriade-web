@@ -33,10 +33,21 @@ for (const relative of requiredFiles) {
 }
 
 const home = fs.readFileSync(path.join(out, "index.html"), "utf8");
-for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
+for (const heldDomain of ["https://sygvana.com", "https://irmya.com", "https://doesaiseeme.istriadegroup.com"]) {
   if (home.includes(`href=\"${heldDomain}`) || home.includes(`href='${heldDomain}`)) {
     throw new Error(`Held product domain rendered as active link: ${heldDomain}`);
   }
+}
+
+const productsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
+if (productsPage.includes("DoesAISeeMe")) {
+  throw new Error("Disabled DoesAISeeMe Product Registry entry rendered publicly");
+}
+if (productsPage.includes("First Revenue Candidate")) {
+  throw new Error("Internal portfolio role leaked into public Products page");
+}
+if (productsPage.includes("href=\"https://doesaiseeme.istriadegroup.com") || productsPage.includes("href='https://doesaiseeme.istriadegroup.com")) {
+  throw new Error("Held DoesAISeeMe destination rendered as active public link");
 }
 
 const notFound = fs.readFileSync(path.join(out, "404.html"), "utf8");
