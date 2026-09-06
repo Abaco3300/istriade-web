@@ -33,10 +33,13 @@ for (const relative of requiredFiles) {
 }
 
 const home = fs.readFileSync(path.join(out, "index.html"), "utf8");
-for (const heldDomain of ["https://sygvana.com", "https://irmya.com", "https://doesaiseeme.istriadegroup.com"]) {
+for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
   if (home.includes(`href=\"${heldDomain}`) || home.includes(`href='${heldDomain}`)) {
     throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
   }
+}
+if (home.includes(">DoesAISeeMe</h3>") || home.includes("Explore DoesAISeeMe")) {
+  throw new Error("DoesAISeeMe must remain absent from the corporate homepage while featured=false");
 }
 
 const productsPage = fs.readFileSync(path.join(out, "products/index.html"), "utf8");
