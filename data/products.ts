@@ -11,6 +11,7 @@ export type ProductRecord = {
   websiteUrl: string | null;
   intendedDomain: string | null;
   publicStatusLabel: string | null;
+  imageSrc: string;
   order: number;
 };
 
@@ -29,6 +30,7 @@ export const products: ProductRecord[] = [
     websiteUrl: "https://sygvana-web.vercel.app",
     intendedDomain: "https://sygvana.com",
     publicStatusLabel: null,
+    imageSrc: "/product-visuals/sygvana.webp",
     order: 1,
   },
   {
@@ -45,6 +47,7 @@ export const products: ProductRecord[] = [
     websiteUrl: "https://seo.istriadegroup.com",
     intendedDomain: "https://seo.istriadegroup.com",
     publicStatusLabel: null,
+    imageSrc: "/product-visuals/seo-agent.webp",
     order: 2,
   },
   {
@@ -55,12 +58,13 @@ export const products: ProductRecord[] = [
       "Discover how your company appears across AI-powered search and answer environments. DoesAISeeMe measures whether AI systems recognize your brand, surface it for relevant queries, recommend it, and understand the sources behind its visibility.",
     ownershipLabel: "An ISTRIADE product",
     accent: "blue",
-    featured: false,
+    featured: true,
     cardEnabled: true,
     externalLinkEnabled: true,
     websiteUrl: "https://doesaiseeme.istriadegroup.com",
     intendedDomain: "https://doesaiseeme.istriadegroup.com",
     publicStatusLabel: null,
+    imageSrc: "/product-visuals/doesaiseeme.webp",
     order: 3,
   },
   {
@@ -77,6 +81,7 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: null,
     publicStatusLabel: null,
+    imageSrc: "/product-visuals/ai-video-studio.webp",
     order: 4,
   },
   {
@@ -93,6 +98,7 @@ export const products: ProductRecord[] = [
     websiteUrl: null,
     intendedDomain: "https://irmya.com",
     publicStatusLabel: null,
+    imageSrc: "/product-visuals/irmya.webp",
     order: 5,
   },
 ];
