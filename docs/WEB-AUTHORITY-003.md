@@ -63,11 +63,12 @@ No LinkedIn search/directory URL is eligible for `sameAs`.
 
 ## Phase B — External corroboration
 
-Status: RESEARCH COMPLETE / WYOMING FORMATION EVIDENCE VERIFIED / D-U-N-S LOOKUP INCONCLUSIVE.
+Status: RESEARCH COMPLETE / WYOMING FORMATION EVIDENCE VERIFIED / D-U-N-S LOOKUP INCONCLUSIVE / CRUNCHBASE SPECIFICATION PREPARED.
 
 Research checkpoint: 2026-09-07 (America/Bogota).
 Wyoming evidence checkpoint: 2026-09-07 (America/Bogota).
 D-U-N-S lookup checkpoint: 2026-09-07 (America/Bogota).
+Crunchbase preparation checkpoint: 2026-09-08 (America/Bogota).
 
 The Phase B priority matrix is recorded in `docs/WEB-AUTHORITY-003-PHASE-B.md`.
 
@@ -115,18 +116,33 @@ No D-U-N-S request, registration, owner/officer verification, address submission
 
 A future D-U-N-S request, if needed, remains a separate Human Gate because it can create an external business identity record and may require current company and responsible-party data.
 
+### Crunchbase
+
+Status: DUPLICATE CHECK COMPLETE / PROFILE SPECIFICATION PREPARED / PUBLICATION NOT AUTHORIZED.
+
+Public exact-name and site-restricted searches did not surface an existing Crunchbase organization profile attributable to ISTRIADE GROUP LLC. Similar-name results were unrelated companies and were not treated as duplicates.
+
+Crunchbase currently requires a registered and socially authenticated user to contribute profile data and instructs users to search for duplicates before creating a new profile. Crunchbase also requires factual/objective content and recommends third-person descriptions, a canonical website, founded date, headquarters, 3–5 industries, and general company contact information.
+
+A controlled proposed profile dataset is recorded in:
+
+`docs/WEB-AUTHORITY-003-CRUNCHBASE.md`
+
+The prepared dataset uses the canonical corporate identity and descriptions, the Wyoming formation date, Sheridan headquarters, corporate website, general contact email and canonical ISTRIADE brand asset. Founder/person identity, funding, employees/team, phone and social links are deliberately held unless separately authorized and factually supported.
+
+No Crunchbase user registration, social authentication, profile creation, founder profile, public edit or publication has been performed. Publication remains a separate Human Gate.
+
 ### Remaining Phase B priority order
 
-1. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
-2. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
-3. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
+1. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
+2. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
 
 Explicit exclusion:
 
 - **Google Business Profile** is not appropriate for the current digital-first ISTRIADE operating model because Google requires eligible businesses to make in-person contact with customers during stated hours. No Google Business Profile should be created solely for authority or SEO.
 - Generic directory submissions, citation farms, bulk listing services, paid backlink schemes and synthetic review acquisition remain prohibited.
 
-No new external profile or registration has been created in this research subphase. No external URL from Phase B is yet eligible for `Organization.sameAs`.
+No new external profile or registration has been created in this research/preparation subphase. No external URL from Phase B is yet eligible for `Organization.sameAs`.
 
 ## Phase C — Topical authority
 
@@ -160,11 +176,14 @@ New articles should deepen existing corporate expertise signals and internally l
 - WYOMING CURRENT LIVE STATUS: NOT REFRESHED — AUTOMATED WyoBiz ACCESS BLOCKED BY CAPTCHA
 - D-U-N-S LOOKUP: INCONCLUSIVE — NO PUBLIC/ARCHIVED ASSIGNMENT EVIDENCE FOUND
 - D-U-N-S REGISTRATION: NOT AUTHORIZED
-- PHASE B PUBLIC/EXTERNAL EXECUTION: NOT AUTHORIZED BY THIS RESEARCH SUBPHASE
-- CRUNCHBASE: PROFILE NOT CREATED / PUBLICATION NOT AUTHORIZED
+- CRUNCHBASE DUPLICATE CHECK: COMPLETE — NO PUBLIC EXACT MATCH FOUND
+- CRUNCHBASE PROFILE SPECIFICATION: PREPARED
+- CRUNCHBASE PROFILE CREATION/PUBLICATION: NOT AUTHORIZED
+- CRUNCHBASE FOUNDER/PERSON IDENTITY: HELD / REQUIRES HUMAN GATE
+- PHASE B PUBLIC/EXTERNAL EXECUTION: NOT AUTHORIZED BY THIS RESEARCH/PREPARATION SUBPHASE
 - OPENCORPORATES: PASSIVE MONITORING
 - GOOGLE BUSINESS PROFILE: EXCLUDED AS INAPPROPRIATE FOR DIGITAL-ONLY MODEL
 - `Organization.sameAs`: NOT BUILT — correctly blocked until a canonical external identity URL exists
 - PHASE C TOPICAL AUTHORITY: OPEN
 
-This research/documentation subphase does not require a production deployment. Any future external profile creation, business-identity registration or `Organization.sameAs` website-code change remains separately gated.
+This research/preparation subphase does not require a production deployment. Any future external profile creation, business-identity registration or `Organization.sameAs` website-code change remains separately gated.
