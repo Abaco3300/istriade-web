@@ -26,7 +26,7 @@ export const products: ProductRecord[] = [
     featured: true,
     cardEnabled: true,
     externalLinkEnabled: true,
-    websiteUrl: "https://sygvana.com",
+    websiteUrl: "https://sygvana-web.vercel.app",
     intendedDomain: "https://sygvana.com",
     publicStatusLabel: null,
     order: 1,
