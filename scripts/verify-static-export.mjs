@@ -53,8 +53,11 @@ for (const heldDomain of ["https://sygvana.com", "https://irmya.com"]) {
     throw new Error(`Held homepage product domain rendered as active link: ${heldDomain}`);
   }
 }
-if (home.includes(">DoesAISeeMe</h3>")) {
-  throw new Error("DoesAISeeMe must remain absent from the corporate homepage while featured=false");
+if (!home.includes(">DoesAISeeMe</h3>")) {
+  throw new Error("DoesAISeeMe featured Product Registry card is missing from the corporate homepage");
+}
+if (!home.includes('href="https://doesaiseeme.istriadegroup.com')) {
+  throw new Error("DoesAISeeMe canonical discovery link is missing from the corporate homepage");
 }
 if (!rawHome.includes('rel="describedby"') || !rawHome.includes('href="/llms.txt"')) {
   throw new Error("Home document does not expose llms.txt through rel=describedby");
