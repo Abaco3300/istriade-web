@@ -61,26 +61,28 @@ Once creation is permitted:
 
 No LinkedIn search/directory URL is eligible for `sameAs`.
 
-## Phase B — External corroboration policy
+## Phase B — External corroboration
 
-Status: OPEN.
+Status: RESEARCH COMPLETE / EXECUTION GATED.
 
-Allowed:
+Research checkpoint: 2026-09-07 (America/Bogota).
 
-- official corporate/business registries;
-- controlled corporate profiles;
-- reputable technology/business directories with real editorial or identity value;
-- product profiles where the product is genuinely public;
-- earned references and editorial citations.
+The Phase B priority matrix is recorded in `docs/WEB-AUTHORITY-003-PHASE-B.md`.
 
-Disallowed:
+Priority order:
 
-- bulk directory submission;
-- paid backlink schemes;
-- artificial reciprocal-link networks;
-- spun guest posts;
-- low-quality citation farms;
-- any profile containing inflated product, customer, revenue or launch claims.
+1. **Wyoming Secretary of State / WyoBiz official entity record** — highest-value legal identity corroboration. Automated retrieval is currently blocked by the registry's human-verification challenge, so the canonical public filing detail must be captured manually/read-only before it can be used as a verified external identity reference.
+2. **Dun & Bradstreet / D-U-N-S** — high-value business identity layer. First perform a D-U-N-S lookup. If no record exists, any D-U-N-S request is a separate external-registration gate because it may require owner/officer verification, address, phone, legal structure and employee information.
+3. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
+4. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
+5. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
+
+Explicit exclusion:
+
+- **Google Business Profile** is not appropriate for the current digital-first ISTRIADE operating model because Google requires eligible businesses to make in-person contact with customers during stated hours. No Google Business Profile should be created solely for authority or SEO.
+- Generic directory submissions, citation farms, bulk listing services, paid backlink schemes and synthetic review acquisition remain prohibited.
+
+No new external profile or registration has been created in this research subphase. No external URL from Phase B is yet eligible for `Organization.sameAs`.
 
 ## Phase C — Topical authority
 
@@ -108,8 +110,14 @@ New articles should deepen existing corporate expertise signals and internally l
 - PR #15: MERGED
 - GITHUB CONTROLLED ENTITY ANCHOR: COMPLETE
 - LINKEDIN COMPANY PAGE: NOT CREATED — BLOCKED BY LINKEDIN PLATFORM ELIGIBILITY
+- PHASE B RESEARCH: COMPLETE
+- PHASE B PUBLIC/EXTERNAL EXECUTION: NOT AUTHORIZED BY THIS RESEARCH SUBPHASE
+- WYOMING OFFICIAL RECORD: MANUAL READ-ONLY VERIFICATION PENDING
+- D-U-N-S: LOOKUP PENDING / REGISTRATION NOT AUTHORIZED
+- CRUNCHBASE: PROFILE NOT CREATED / PUBLICATION NOT AUTHORIZED
+- OPENCORPORATES: PASSIVE MONITORING
+- GOOGLE BUSINESS PROFILE: EXCLUDED AS INAPPROPRIATE FOR DIGITAL-ONLY MODEL
 - `Organization.sameAs`: NOT BUILT — correctly blocked until a canonical external identity URL exists
-- PHASE B EXTERNAL CORROBORATION: OPEN
 - PHASE C TOPICAL AUTHORITY: OPEN
 
-This block does not require a production deployment solely to record the reconciled documentation state. Any future `Organization.sameAs` website-code change remains a separate build, validation, merge and deployment gate.
+This research/documentation subphase does not require a production deployment. Any future external profile creation, business-identity registration or `Organization.sameAs` website-code change remains separately gated.
