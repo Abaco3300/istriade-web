@@ -30,35 +30,40 @@ No replacement entity architecture is required.
 
 ### GitHub
 
-Status: PARTIALLY BUILT.
+Status: COMPLETE / VERIFIED.
 
-The public repository README now prominently identifies this repository as the official corporate website source for ISTRIADE GROUP LLC and exposes canonical links to the company website, public corporate surfaces and contact channel.
+The public repository README prominently identifies this repository as the official corporate website source for ISTRIADE GROUP LLC and exposes canonical links to the company website, public corporate surfaces and contact channel.
 
-Repository-level GitHub About metadata remains pending because the connected GitHub action surface does not expose repository settings writes for description, homepage or topics.
-
-Target manual metadata:
+Repository-level GitHub About metadata was applied and independently verified:
 
 - Description: `Official corporate website of ISTRIADE GROUP LLC — AI software, intelligent systems and specialized digital services for business.`
 - Website: `https://istriadegroup.com/`
 - Topics: `artificial-intelligence`, `business-automation`, `search-visibility`, `business-intelligence`, `nextjs`, `cloudflare-workers`
+- Repository visibility remained public.
+
+The README/entity-anchor work was merged through PR #15. The GitHub controlled corporate anchor is complete.
 
 ### LinkedIn
 
-Status: RESEARCHED / NOT VERIFIED AS OFFICIAL COMPANY PAGE.
+Status: BLOCKED BY LINKEDIN PLATFORM ELIGIBILITY / DEFERRED.
 
-Public search results currently surface a LinkedIn directory result for `Jose Angel Gomez — Sheridan, WY — Istriade Group LLC`, which is useful corroboration but does not provide a unique company-page URL or a sufficiently precise individual-profile URL for canonical entity linking.
+Public search did not surface a verified official ISTRIADE GROUP LLC company-page URL. A creation attempt was then made from the authenticated LinkedIn account, but LinkedIn blocked Company Page creation because the personal profile did not yet satisfy its connection/eligibility requirement.
 
-No `sameAs` value will be added from a LinkedIn directory/search URL.
+No attempt will be made to circumvent that restriction. The next action is deferred until LinkedIn permits Company Page creation through normal platform eligibility.
 
-Required next state before website integration:
+Once creation is permitted:
 
-1. Verify or create an official LinkedIn company page for `ISTRIADE GROUP LLC`.
+1. Create or verify the official LinkedIn company page for `ISTRIADE GROUP LLC`.
 2. Set its website to `https://istriadegroup.com/`.
 3. Keep legal/company naming, location and description consistent with the corporate website.
 4. Obtain the canonical public LinkedIn company URL.
 5. Only then propose adding that URL to `Organization.sameAs`.
 
+No LinkedIn search/directory URL is eligible for `sameAs`.
+
 ## Phase B — External corroboration policy
+
+Status: OPEN.
 
 Allowed:
 
@@ -79,6 +84,8 @@ Disallowed:
 
 ## Phase C — Topical authority
 
+Status: OPEN FOR CONTROLLED EXPANSION.
+
 Editorial growth should proceed by coherent topic clusters rather than mass publishing. Priority clusters:
 
 - AI Search Visibility;
@@ -90,15 +97,19 @@ Editorial growth should proceed by coherent topic clusters rather than mass publ
 
 New articles should deepen existing corporate expertise signals and internally link to the relevant canonical Insights, capability and product surfaces.
 
-## Lifecycle state
+## Reconciled lifecycle state
 
 - IDENTIFIED: YES
 - PROPOSED: YES
 - APPROVED: YES
 - BASELINE: COMPLETE
-- GITHUB README ANCHOR: BUILT ON FEATURE BRANCH
-- GITHUB ABOUT METADATA: HUMAN ACTION PENDING
-- LINKEDIN COMPANY PAGE: NOT VERIFIED
-- `Organization.sameAs`: NOT BUILT — blocked until canonical external identity URL exists
-- MERGED: NO
-- DEPLOYED: NO
+- GITHUB README ANCHOR: COMPLETE
+- GITHUB ABOUT METADATA: COMPLETE / VERIFIED
+- PR #15: MERGED
+- GITHUB CONTROLLED ENTITY ANCHOR: COMPLETE
+- LINKEDIN COMPANY PAGE: NOT CREATED — BLOCKED BY LINKEDIN PLATFORM ELIGIBILITY
+- `Organization.sameAs`: NOT BUILT — correctly blocked until a canonical external identity URL exists
+- PHASE B EXTERNAL CORROBORATION: OPEN
+- PHASE C TOPICAL AUTHORITY: OPEN
+
+This block does not require a production deployment solely to record the reconciled documentation state. Any future `Organization.sameAs` website-code change remains a separate build, validation, merge and deployment gate.
