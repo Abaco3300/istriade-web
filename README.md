@@ -20,14 +20,20 @@ Corporate contact: **contact@istriadegroup.com**
 
 - Production website: **live** at `https://istriadegroup.com/`
 - Current production runtime: Cloudflare Worker `tiny-pond-1463`
-- Current verified production deployment: GitHub Actions run `34066286885`
-- Current verified production source commit: `4446c7d7f7014e987f7d605c8ca194338890934c`
+- Current verified production deployment: GitHub Actions run `34173002170`
+- Current verified production source commit: `ac9b0a4b6c02ad4dfafd861e4efd2ff2ffbf4774`
+- Current verified Cloudflare Worker version: `e62bd7fa-42d7-4d5f-9ef4-5207c8647efd`
+- Previous verified production deployment: GitHub Actions run `34066286885`
+- Previous verified production source commit: `4446c7d7f7014e987f7d605c8ca194338890934c`
 - Historical verified production deployment baseline: GitHub Actions run `34008750674`
 - Historical verified production source baseline: `511de7bd1174a3d3494ba46f22951d06eaf08b7b`
 - Canonical brand assets: integrity-pinned
 - Product Registry: active; public links are enabled only when individually authorized
+- Verified public product links currently include ISTRIADE SEO Agent and DoesAISeeMe
 - Corporate legal surface: `/legal/`, `/privacy/`, `/terms/`, `/commercial-policies/`
 - Corporate authority surface: `/insights/`, `/trust/`, `llms.txt`, structured data and AI/search discovery controls
+- GitHub corporate entity anchor: complete, including repository About metadata
+- LinkedIn company-page integration: blocked pending LinkedIn platform eligibility; no unverified `sameAs` is published
 - Accessibility, metadata, static-export and deployment guards: CI-verified
 - Production deployment: manual-only with live verification and automatic rollback on failure
 
