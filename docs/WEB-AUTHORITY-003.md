@@ -63,19 +63,41 @@ No LinkedIn search/directory URL is eligible for `sameAs`.
 
 ## Phase B — External corroboration
 
-Status: RESEARCH COMPLETE / EXECUTION GATED.
+Status: RESEARCH COMPLETE / WYOMING FORMATION EVIDENCE VERIFIED / LIVE REGISTRY STATUS CHECK BLOCKED BY CAPTCHA.
 
 Research checkpoint: 2026-09-07 (America/Bogota).
+Wyoming evidence checkpoint: 2026-09-07 (America/Bogota).
 
 The Phase B priority matrix is recorded in `docs/WEB-AUTHORITY-003-PHASE-B.md`.
 
-Priority order:
+### Wyoming Secretary of State / WyoBiz
 
-1. **Wyoming Secretary of State / WyoBiz official entity record** — highest-value legal identity corroboration. Automated retrieval is currently blocked by the registry's human-verification challenge, so the canonical public filing detail must be captured manually/read-only before it can be used as a verified external identity reference.
-2. **Dun & Bradstreet / D-U-N-S** — high-value business identity layer. First perform a D-U-N-S lookup. If no record exists, any D-U-N-S request is a separate external-registration gate because it may require owner/officer verification, address, phone, legal structure and employee information.
-3. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
-4. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
-5. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
+Status: FORMATION EVIDENCE VERIFIED; CURRENT LIVE REGISTRY STATUS NOT AUTOMATICALLY REFRESHED.
+
+Archived official Wyoming Secretary of State filing material for ISTRIADE GROUP LLC was recovered and cross-checked. It establishes:
+
+- legal entity name: `ISTRIADE GROUP LLC`;
+- entity type: Wyoming limited liability company;
+- Original ID: `2026-001899814`;
+- filing date/time: `February 20, 2026 at 10:19 AM`;
+- Certificate of Organization issued by the Wyoming Secretary of State.
+
+The exact official WyoBiz filing-details URL previously associated with this entity is:
+
+`https://wyobiz.wyo.gov/Business/FilingDetails.aspx?eFNum=221140056241109139097063177145198096024083031121`
+
+A fresh automated access attempt to that exact official URL reached WyoBiz but was blocked by the registry's human-verification/CAPTCHA challenge. Therefore this checkpoint does **not** claim a fresh automated confirmation of current live status, current registered agent, current principal/mailing address, or good-standing status.
+
+Historical registered-agent and address values contained in the original filing are deliberately not restated here as current facts. Any later registered-agent or address changes must be confirmed from a fresh live registry view or other authoritative current record before publication or reuse.
+
+The Wyoming official record is a high-value legal identity corroboration source, but its public URL is not yet being added to `Organization.sameAs`. `sameAs` remains reserved for externally verifiable identity URLs that are stable, clearly attributable and useful to crawlers/users.
+
+### Remaining Phase B priority order
+
+1. **Dun & Bradstreet / D-U-N-S** — high-value business identity layer. First perform a D-U-N-S lookup. If no record exists, any D-U-N-S request is a separate external-registration gate because it may require owner/officer verification, address, phone, legal structure and employee information.
+2. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
+3. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
+4. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
 
 Explicit exclusion:
 
@@ -111,8 +133,10 @@ New articles should deepen existing corporate expertise signals and internally l
 - GITHUB CONTROLLED ENTITY ANCHOR: COMPLETE
 - LINKEDIN COMPANY PAGE: NOT CREATED — BLOCKED BY LINKEDIN PLATFORM ELIGIBILITY
 - PHASE B RESEARCH: COMPLETE
+- WYOMING FORMATION EVIDENCE: VERIFIED
+- WYOMING ORIGINAL ID: `2026-001899814`
+- WYOMING CURRENT LIVE STATUS: NOT REFRESHED — AUTOMATED WyoBiz ACCESS BLOCKED BY CAPTCHA
 - PHASE B PUBLIC/EXTERNAL EXECUTION: NOT AUTHORIZED BY THIS RESEARCH SUBPHASE
-- WYOMING OFFICIAL RECORD: MANUAL READ-ONLY VERIFICATION PENDING
 - D-U-N-S: LOOKUP PENDING / REGISTRATION NOT AUTHORIZED
 - CRUNCHBASE: PROFILE NOT CREATED / PUBLICATION NOT AUTHORIZED
 - OPENCORPORATES: PASSIVE MONITORING
