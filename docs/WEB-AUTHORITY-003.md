@@ -63,10 +63,11 @@ No LinkedIn search/directory URL is eligible for `sameAs`.
 
 ## Phase B — External corroboration
 
-Status: RESEARCH COMPLETE / WYOMING FORMATION EVIDENCE VERIFIED / LIVE REGISTRY STATUS CHECK BLOCKED BY CAPTCHA.
+Status: RESEARCH COMPLETE / WYOMING FORMATION EVIDENCE VERIFIED / D-U-N-S LOOKUP INCONCLUSIVE.
 
 Research checkpoint: 2026-09-07 (America/Bogota).
 Wyoming evidence checkpoint: 2026-09-07 (America/Bogota).
+D-U-N-S lookup checkpoint: 2026-09-07 (America/Bogota).
 
 The Phase B priority matrix is recorded in `docs/WEB-AUTHORITY-003-PHASE-B.md`.
 
@@ -92,12 +93,33 @@ Historical registered-agent and address values contained in the original filing 
 
 The Wyoming official record is a high-value legal identity corroboration source, but its public URL is not yet being added to `Organization.sameAs`. `sameAs` remains reserved for externally verifiable identity URLs that are stable, clearly attributable and useful to crawlers/users.
 
+### Dun & Bradstreet / D-U-N-S
+
+Status: LOOKUP INCONCLUSIVE / NO PUBLIC EVIDENCE FOUND / REGISTRATION NOT AUTHORIZED.
+
+A read-only lookup was performed for `ISTRIADE GROUP LLC` using public web search and Dun & Bradstreet's official lookup entry point.
+
+Findings:
+
+- public web search did not surface an identifiable D&B company profile or D-U-N-S number for `ISTRIADE GROUP LLC`;
+- exact-name searches including Sheridan, Wyoming did not surface a D&B-indexed entity result;
+- the official D&B D-U-N-S lookup redirects to `https://my.dnb.com/lookup` and requires client-side JavaScript, preventing a definitive automated lookup in the current environment;
+- historical ISTRIADE formation/setup records reviewed in the project archive do not contain a previously assigned D-U-N-S number or evidence of a completed D&B registration;
+- a dedicated D&B Commercial Graph integration exists in the broader tool ecosystem but is not available for this account/session.
+
+Interpretation:
+
+This checkpoint does **not** establish that ISTRIADE GROUP LLC lacks a D-U-N-S number. It establishes only that no verifiable existing number was found through the accessible public and archived sources. The correct status is therefore `LOOKUP INCONCLUSIVE`, not `NO D-U-N-S`.
+
+No D-U-N-S request, registration, owner/officer verification, address submission, phone submission, business-credit enrollment or other D&B write action has been initiated.
+
+A future D-U-N-S request, if needed, remains a separate Human Gate because it can create an external business identity record and may require current company and responsible-party data.
+
 ### Remaining Phase B priority order
 
-1. **Dun & Bradstreet / D-U-N-S** — high-value business identity layer. First perform a D-U-N-S lookup. If no record exists, any D-U-N-S request is a separate external-registration gate because it may require owner/officer verification, address, phone, legal structure and employee information.
-2. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
-3. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
-4. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
+1. **Crunchbase** — appropriate controlled technology-company profile. Public search did not surface an existing ISTRIADE profile. Crunchbase permits registered, socially authenticated users to create company profiles after checking for duplicates. Profile creation is a separate public-publication gate.
+2. **OpenCorporates** — passive monitoring only. OpenCorporates does not support manual company addition and states that newly registered companies can take 30–90 days to appear.
+3. **BBB** — optional / lower priority. A business profile can be managed, but accreditation is a paid, separately vetted program and is not required for corporate authority at this stage.
 
 Explicit exclusion:
 
@@ -136,8 +158,9 @@ New articles should deepen existing corporate expertise signals and internally l
 - WYOMING FORMATION EVIDENCE: VERIFIED
 - WYOMING ORIGINAL ID: `2026-001899814`
 - WYOMING CURRENT LIVE STATUS: NOT REFRESHED — AUTOMATED WyoBiz ACCESS BLOCKED BY CAPTCHA
+- D-U-N-S LOOKUP: INCONCLUSIVE — NO PUBLIC/ARCHIVED ASSIGNMENT EVIDENCE FOUND
+- D-U-N-S REGISTRATION: NOT AUTHORIZED
 - PHASE B PUBLIC/EXTERNAL EXECUTION: NOT AUTHORIZED BY THIS RESEARCH SUBPHASE
-- D-U-N-S: LOOKUP PENDING / REGISTRATION NOT AUTHORIZED
 - CRUNCHBASE: PROFILE NOT CREATED / PUBLICATION NOT AUTHORIZED
 - OPENCORPORATES: PASSIVE MONITORING
 - GOOGLE BUSINESS PROFILE: EXCLUDED AS INAPPROPRIATE FOR DIGITAL-ONLY MODEL
