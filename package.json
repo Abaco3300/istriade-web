@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/generate-sygvana-visual.mjs && next build",
     "typecheck": "tsc --noEmit",
     "content:guard": "node scripts/content-guard.mjs",
     "brand:check": "node scripts/brand-integrity.mjs",
