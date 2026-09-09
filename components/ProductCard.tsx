@@ -18,6 +18,7 @@ export function ProductCard({ product }: { product: ProductRecord }) {
           alt=""
           width={150}
           height={80}
+          unoptimized
           style={{
             width: 150,
             height: 80,
